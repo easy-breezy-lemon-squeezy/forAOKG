@@ -1,0 +1,11 @@
+﻿  main.cpp
+C:\Users\Ghost\source\repos\Компьютерная графика\Лаба 4\Project1\main.cpp(71,54): warning C4305: инициализация: усечение из "double" в "GLfloat"
+C:\Users\Ghost\source\repos\Компьютерная графика\Лаба 4\Project1\main.cpp(118,49): warning C4244: =: преобразование "GLfloat" в "int", возможна потеря данных
+C:\Users\Ghost\source\repos\Компьютерная графика\Лаба 4\Project1\main.cpp(121,47): warning C4244: =: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\Ghost\source\repos\Компьютерная графика\Лаба 4\Project1\main.cpp(127,49): warning C4244: =: преобразование "GLfloat" в "int", возможна потеря данных
+C:\Users\Ghost\source\repos\Компьютерная графика\Лаба 4\Project1\main.cpp(130,47): warning C4244: =: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\Ghost\source\repos\Компьютерная графика\Лаба 4\Project1\main.cpp(137,49): warning C4244: =: преобразование "GLfloat" в "int", возможна потеря данных
+C:\Users\Ghost\source\repos\Компьютерная графика\Лаба 4\Project1\main.cpp(140,47): warning C4244: =: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\Ghost\source\repos\Компьютерная графика\Лаба 4\Project1\main.cpp(148,49): warning C4244: =: преобразование "GLfloat" в "int", возможна потеря данных
+C:\Users\Ghost\source\repos\Компьютерная графика\Лаба 4\Project1\main.cpp(151,47): warning C4244: =: преобразование "int" в "GLfloat", возможна потеря данных
+  Project1.vcxproj -> C:\Users\Ghost\source\repos\Компьютерная графика\Лаба 4\Project1\Debug\Project1.exe
