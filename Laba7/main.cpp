@@ -1,5 +1,6 @@
 #include "Data.h"
 
+
 using namespace std;
 
 float GetSimulationTime() {
@@ -66,10 +67,10 @@ void Display(void)
 	for (int i = 0; i < 21; ++i) {
 		for (int j = 0; j < 21; ++j) {
 			//свободные клетки пропускаем
-			if (passabilityMap[i][j] != 0) {
+			
 				//объекты
 				mapObjects[i][j]->draw();
-			}
+			
 		}
 	}
 	player->draw();
