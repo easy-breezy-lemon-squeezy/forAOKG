@@ -66,11 +66,12 @@ void Display(void)
 	// выводим объекты
 	for (int i = 0; i < 21; ++i) {
 		for (int j = 0; j < 21; ++j) {
+
 			//свободные клетки пропускаем
-			
+			if ((Array.get()->at(i).at(j)) != '0'){
 				//объекты
 				mapObjects[i][j]->draw();
-			
+			}
 		}
 	}
 	player->draw();
