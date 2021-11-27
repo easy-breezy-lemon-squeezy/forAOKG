@@ -84,7 +84,7 @@ void Display(void)
 // Функция обработки нажатия клавиш
 void KeyboardFunc(unsigned char key, int x, int y)
 {
-	printf("Key code is %i\n", (unsigned int)key);
+	
 };
 
 

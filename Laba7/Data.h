@@ -74,15 +74,16 @@ void initData()
 				mapObjects[i][j] = gameObjectFactory.create(GameObjectType::HEAVY_OBJECT, i, 0, j);
 
 			}
+			else if ((Array.get()->at(i).at(j)) == '1') {
+				mapObjects[i][j] = gameObjectFactory.create(GameObjectType::LIGHT_OBJECT, i, 0, j);
+			}
 			else if ((Array.get()->at(i).at(j)) == '0') {
 				mapObjects[i][j] = gameObjectFactory.create(GameObjectType::LIGHT_OBJECT, i, 0, j);
 
 			}
 			
-			
-		
 		}
-		cout << endl;
+		
 	}
 
 	// инициализация главного героя
