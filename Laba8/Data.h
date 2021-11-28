@@ -1,4 +1,5 @@
 #pragma once
+#include "glew-2.2.0/include/GL/glew.h"
 #include "GraphObject.h"
 #include "Camera.h"
 #include "Light.h"
@@ -60,8 +61,6 @@ GameObjectFactory gameObjectFactory;
 // функция для инициализации всех общих данных (камера, объекты и т.д.)
 void initData()
 {
-	
-	
 	// инициализация фабрики (в дальнейшем на основе json-файла)
 	gameObjectFactory.init("data//GameObjectsDescription.json");
 	// инициализация объектов сцены
@@ -79,7 +78,7 @@ void initData()
 				mapObjects[i][j] = gameObjectFactory.create(GameObjectType::LIGHT_OBJECT, i, 0, j);
 			}
 			else if ((Array.get()->at(i).at(j)) == '0') {
-				mapObjects[i][j] = gameObjectFactory.create(GameObjectType::LIGHT_OBJECT, i, 0, j);
+				mapObjects[i][j] = nullptr;
 
 			}
 			
@@ -97,4 +96,16 @@ void initData()
 	shared_ptr<PhongMaterial> planeMaterial = make_shared<PhongMaterial>();
 	planeMaterial->load("data\\materials\\PlaneMaterial.txt");
 	planeGraphicObject.setMaterial(planeMaterial);
+}
+
+void initGlew() {
+	GLenum err = glewInit();
+	if (GLEW_OK != err)
+	{
+		printf("Error: %s\n", glewGetErrorString(err));
+	}
+	printf("Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
+	if (GLEW_ARB_vertex_buffer_object) {
+		printf("VBO is supported");
+	};
 }

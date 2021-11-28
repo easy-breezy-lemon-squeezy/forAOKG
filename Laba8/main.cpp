@@ -89,7 +89,7 @@ void KeyboardFunc(unsigned char key, int x, int y)
 
 
 int main(int argc, char* argv[]) {
-	initData();
+	
 	// инициализация библиотеки GLUT
 	glutInit(&argc, argv);
 	// инициализация дисплея (формат вывода)
@@ -97,10 +97,14 @@ int main(int argc, char* argv[]) {
 	// создание окна:
 // 1. устанавливаем верхний левый угол окна
 	glutInitWindowPosition(200, 200);
+
 	// 2. устанавливаем размер окна
 	glutInitWindowSize(800, 600);
 	// 3. создаем окно
 	glutCreateWindow("laba6");
+	initGlew();
+	initData();
+	
 	// устанавливаем функцию, которая будет вызываться для перерисовки окна
 	glutDisplayFunc(Display);
 	// устанавливаем функцию, которая будет вызываться при изменении размеров окна
