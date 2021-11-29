@@ -3,7 +3,10 @@
 
 using namespace std;
 
-GameObject::GameObject(){}
+GameObject::GameObject()
+{
+	this->progress = 0;
+}
 
 void GameObject::setGraphicObject(shared_ptr<GraphicObject> graphcopy) {
 	graphic = graphcopy;
@@ -40,7 +43,7 @@ bool GameObject::isMoving()
 
 void GameObject::move(MoveDirection direction, float speed)
 {
-	
+
 	this->speed = speed;
 	switch (direction)
 	{
@@ -67,23 +70,21 @@ void GameObject::simulate(float sec)
 	float posZ = ptrvalue[2];
 	if (this->state == MoveDirection::LEFT)
 	{
-		this->progress = 0.0f;
 		if (this->progress < 1.0f)
 		{
-			
-			this->progress += 1;
-			
-			this->graphic->setPosition(posX, posY, posZ + this->progress);
-			cout << this->progress << endl;   //от 0 до 1
-			cout << posZ << endl;            
-			if (this->progress >= 1.0f)
-			{
-				this->state = MoveDirection::STOP;
-				this->setPosition(posX, posY, posZ);
-				this->progress = 0.0f;
-			}
-		}
+			this->progress += sec * this->speed;
+			cout << this->progress << endl;
+			cout << posZ << endl;
 		
+			this->graphic->setPosition(posX, posY, posZ + sec * 2 * this->progress);
+		
+		}
+		if (this->progress >= 1.0f)
+		{
+			this->state = MoveDirection::STOP;
+			this->setPosition(posX, posY, posZ);
+			this->progress = 0.0f;
+		}
 	}
 	if (this->state == MoveDirection::RIGHT)
 	{
