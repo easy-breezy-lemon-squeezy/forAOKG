@@ -53,13 +53,13 @@ void Mesh::load(string filename) {
 			index = to_string(int(face.x * 100 + face.y * 10 + face.z)); 
 			auto fi = vertexToIndexTable.find(index);    // получаем элемент с ключом index
 			if (fi == vertexToIndexTable.end()) {        // если вершина не найдена то   
-				vertexToIndexTable.insert(pair<string, int>(index, m));     // вставляем ее в массив вершина + номер
-				indices.push_back(m);   //вставляем номер в массив индексов
+				vertexToIndexTable.insert(pair<string, int>(index, m));     // вставляем ее в таблицу вершина и ее индекс
+				indices.push_back(m);   //вставляем индекс в массив индексов
 				++m;                    
 				faces.push_back(face);  //первую часть треугольничка полигона  
 			}
 			else {
-				indices.push_back(fi->second);   //  вставляем номер в массив индексов 
+				indices.push_back(fi->second);   //  вставляем индекс в массив индексов 
 			}
 			f >> face.x >> ch >> face.y >> ch >> face.z;
 			index = to_string(int(face.x * 100 + face.y * 10 + face.z));
@@ -141,7 +141,7 @@ void Mesh::draw() {
 	glNormalPointer(GL_FLOAT, sizeof(Vertex), (GLvoid*)offsetof(Vertex, normal));
 	glVertexPointer(3, GL_FLOAT, sizeof(Vertex), (GLvoid*)offsetof(Vertex, coord));
 
-	//выводи модель
+	//выводим модель
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bufferIds[1]);
 	glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, 0);
 

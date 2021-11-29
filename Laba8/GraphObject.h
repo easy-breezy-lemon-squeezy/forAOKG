@@ -25,6 +25,8 @@ public:
 	GraphicObject(void);
 	// Задать позицию объекта
 	void setPosition(float x, float y, float z);
+	// Взять позицию объекта
+	float* getPosition();
 	// Задать угол поворота в градусах относительно оси OY
 	void setAngle(float a);
 	// Задать цвет модели

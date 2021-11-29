@@ -14,6 +14,16 @@ void GraphicObject::setPosition(float x, float y, float z)
 		modelMatrix[12 + i] = position[i];
 	}
 }
+
+// вернуть позицию объекта
+float* GraphicObject::getPosition()
+{
+	static float pos[3];
+	pos[0] = position[0];
+	pos[1] = position[1];
+	pos[2] = position[2];
+	return pos;
+}
 // задать угол поворота в градусах относительно оси OY
 void GraphicObject::setAngle(float a)
 {

@@ -8,7 +8,24 @@ float GetSimulationTime() {
 	QueryPerformanceCounter(&NewSimTik);
 	return (float(NewSimTik.QuadPart - OldSimTik.QuadPart)) / frequency.QuadPart;
 }
+void movePlayer(bool left, bool right, bool up, bool down) {
 
+	if (left) {
+		player->move(GameObject::MoveDirection::LEFT, 1.0f);
+	}
+	else if (right) {
+		player->move(GameObject::MoveDirection::RIGHT, 1.0f);
+	}
+	else if (up) {
+		player->move(GameObject::MoveDirection::UP, 1.0f);
+	}
+	else if (down) {
+		player->move(GameObject::MoveDirection::DOWN, 1.0f);
+	}
+	else {
+		player->move(GameObject::MoveDirection::STOP, 1.0f);
+	}
+}
 // функция вызывается каждые 20 мс
 void Simulation()
 {
@@ -25,6 +42,14 @@ void Simulation()
 		CameraUp, CameraDown,
 		CameraForward, CameraBackward);
 	camera.simulate(deltaTime);
+
+	//перемещение игрока
+	bool MoveDirectionUp = GetAsyncKeyState(0x57); //W
+	bool MoveDirectionDown = GetAsyncKeyState(0x53);  //S
+	bool MoveDirectionLeft = GetAsyncKeyState(0x41);  //A
+	bool MoveDirectionRight = GetAsyncKeyState(0x44); //D
+	movePlayer(MoveDirectionLeft, MoveDirectionRight, MoveDirectionUp, MoveDirectionDown);
+	player->simulate(deltaTime);
 	// устанавливаем признак того, что окно нуждается в перерисовке
 	// эта же функция будет вызвана еще раз через 20 мс
 	glutPostRedisplay();
