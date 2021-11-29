@@ -73,8 +73,8 @@ void GameObject::simulate(float sec)
 		if (this->progress < 1.0f)
 		{
 			this->progress += sec * this->speed;
-			cout << this->progress << endl;
-			cout << posZ << endl;
+			//cout << this->progress << endl;
+			//cout << posZ << endl;
 		
 			this->graphic->setPosition(posX, posY, posZ + sec * 2 * this->progress);
 		
@@ -88,49 +88,55 @@ void GameObject::simulate(float sec)
 	}
 	if (this->state == MoveDirection::RIGHT)
 	{
-		cout << "RIGHT" << endl;
 		if (this->progress < 1.0f)
 		{
 			this->progress += sec * this->speed;
-			this->graphic->setPosition(posX - 10 + this->progress, posZ, posY - 10);
-			// std::cout << this->progress << std::endl;
+			//cout << this->progress << endl;
+			//cout << posZ << endl;
+
+			this->graphic->setPosition(posX, posY, posZ - sec * 2 * this->progress);
+
 		}
 		if (this->progress >= 1.0f)
 		{
 			this->state = MoveDirection::STOP;
-			this->setPosition(posX + 1, posY, 0);
+			this->setPosition(posX, posY, posZ);
 			this->progress = 0.0f;
 		}
 	}
 	if (this->state == MoveDirection::UP)
 	{
-		cout << "UP" << endl;
 		if (this->progress < 1.0f)
 		{
 			this->progress += sec * this->speed;
-			this->graphic->setPosition(posX - 10, 0, posY - 10 - this->progress);
-			// std::cout << this->progress << std::endl;
+			//cout << this->progress << endl;
+			//cout << posZ << endl;
+
+			this->graphic->setPosition(posX -  sec * 2 * this->progress, posY, posZ);
+
 		}
 		if (this->progress >= 1.0f)
 		{
 			this->state = MoveDirection::STOP;
-			this->setPosition(posX, posY - 1, posZ);
+			this->setPosition(posX, posY, posZ);
 			this->progress = 0.0f;
 		}
 	}
 	if (this->state == MoveDirection::DOWN)
 	{
-		cout << "DOWN" << endl;
 		if (this->progress < 1.0f)
 		{
 			this->progress += sec * this->speed;
-			this->graphic->setPosition(posX - 10, 0, posY - 10 + this->progress);
-			// std::cout << this->progress << std::endl;
+			//cout << this->progress << endl;aa
+			//cout << posZ << endl;
+
+			this->graphic->setPosition(posX + sec * 2 * this->progress, posY, posZ);
+
 		}
 		if (this->progress >= 1.0f)
 		{
 			this->state = MoveDirection::STOP;
-			this->setPosition(posX, posY + 1, posZ);
+			this->setPosition(posX, posY, posZ);
 			this->progress = 0.0f;
 		}
 	}

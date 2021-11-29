@@ -3,7 +3,7 @@
 using namespace std;
 
 Camera::Camera() {
-	radius = sqrt(1000);
+	radius = sqrt(2000);
 }
 Camera::~Camera() {
 }
@@ -54,5 +54,6 @@ void Camera::apply() {
 	y = radius * sin(betaRad);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+	
 	gluLookAt(x, y, z, 0, 0, 0, 0, 1, 0);
 }
