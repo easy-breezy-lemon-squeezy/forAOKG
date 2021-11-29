@@ -183,6 +183,16 @@ public:
         {
             for (unsigned j = 0; j < maze.get()->at(0).size(); ++j)
             {
+                if (maze.get()->at(i).at(j) == '3') {
+                    maze.get()->at(i).at(j) = '2';
+                }
+                
+            }
+        }
+        for (unsigned i = 0; i < maze.get()->size(); ++i)
+        {
+            for (unsigned j = 0; j < maze.get()->at(0).size(); ++j)
+            {
                 if (i == 0) {
                     maze.get()->at(i).at(j) = '3';
                 }
