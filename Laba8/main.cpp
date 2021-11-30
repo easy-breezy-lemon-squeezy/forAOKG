@@ -9,22 +9,54 @@ float GetSimulationTime() {
 	return (float(NewSimTik.QuadPart - OldSimTik.QuadPart)) / frequency.QuadPart;
 }
 void movePlayer(bool left, bool right, bool up, bool down) {
-
+	float* ptrvalue = player->getPosition();
+	int posX = int(ceil(ptrvalue[0]));
+	int posY = int(ceil(ptrvalue[1]));
+	int posZ = int(ceil(ptrvalue[2]));
+	
 	if (left) {
-		player->move(GameObject::MoveDirection::LEFT, 1.0f);
+		char nextPlaceLeft = Array.get()->at(posX + 10).at(posZ + 11);
+		if (nextPlaceLeft == '0') {
+			player->move(GameObject::MoveDirection::LEFT, 1.0f);
+			nextPlaceLeft = Array.get()->at(posX + 10).at(posZ + 11);
+		}
+		else if (nextPlaceLeft == '1') {
+
+		}
+
 	}
 	else if (right) {
-		player->move(GameObject::MoveDirection::RIGHT, 1.0f);
+		char nextPlaceRight = Array.get()->at(posX + 10).at(posZ + 9);
+		if (nextPlaceRight == '0') {
+			player->move(GameObject::MoveDirection::RIGHT, 1.0f);
+			nextPlaceRight = Array.get()->at(posX + 10).at(posZ + 9);
+		}
+		else if (nextPlaceRight == '1') {
+
+		}
 	}
 	else if (up) {
-		player->move(GameObject::MoveDirection::UP, 1.0f);
+		char nextPlaceUp = Array.get()->at(posX + 9).at(posZ + 10);
+		if (nextPlaceUp == '0') {
+			player->move(GameObject::MoveDirection::UP, 1.0f);
+			nextPlaceUp = Array.get()->at(posX + 9).at(posZ + 10);
+		}
+		else if (nextPlaceUp == '1') {
+
+		}
 	}
 	else if (down) {
-		player->move(GameObject::MoveDirection::DOWN, 1.0f);
+		char nextPlaceDown = Array.get()->at(posX + 11).at(posZ + 10);
+		if (nextPlaceDown == '0') {
+			player->move(GameObject::MoveDirection::DOWN, 1.0f);
+			nextPlaceDown = Array.get()->at(posX + 11).at(posZ + 10);
+		}
+		else if (nextPlaceDown == '1') {
+
+		}
+		
 	}
-	else {
-		player->move(GameObject::MoveDirection::STOP, 1.0f);
-	}
+	
 }
 // функция вызывается каждые 20 мс
 void Simulation()
@@ -91,7 +123,6 @@ void Display(void)
 	// выводим объекты
 	for (int i = 0; i < SIZE; ++i) {
 		for (int j = 0; j < SIZE; ++j) {
-
 			//свободные клетки пропускаем
 			if ((Array.get()->at(i).at(j)) != '0'){
 				//объекты
