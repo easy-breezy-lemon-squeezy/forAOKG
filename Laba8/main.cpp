@@ -9,51 +9,61 @@ float GetSimulationTime() {
 	return (float(NewSimTik.QuadPart - OldSimTik.QuadPart)) / frequency.QuadPart;
 }
 void movePlayer(bool left, bool right, bool up, bool down) {
-	float* ptrvalue = player->getPosition();
-	int posX = int(ceil(ptrvalue[0]));
-	int posY = int(ceil(ptrvalue[1]));
-	int posZ = int(ceil(ptrvalue[2]));
+	float* ptrvaluePlayer = player->getPosition();
+	int posPlayerX = int(ceil(ptrvaluePlayer[0]));
+	int posPlayerY = int(ceil(ptrvaluePlayer[1]));
+	int posPlayerZ = int(ceil(ptrvaluePlayer[2]));
 	
 	if (left) {
-		char nextPlaceLeft = Array.get()->at(posX + 10).at(posZ + 11);
+		char nextPlaceLeft = Array.get()->at(posPlayerX + 10).at(posPlayerZ + 11);
 		if (nextPlaceLeft == '0') {
-			player->move(GameObject::MoveDirection::LEFT, 1.0f);
-			nextPlaceLeft = Array.get()->at(posX + 10).at(posZ + 11);
+			nextPlaceLeft = Array.get()->at(posPlayerX + 10).at(posPlayerZ + 11);
+			player->move(MoveDirection::LEFT, 1.0f);
+			nextPlaceLeft = Array.get()->at(posPlayerX + 10).at(posPlayerZ + 11);
 		}
 		else if (nextPlaceLeft == '1') {
+			char nextNextPlaceLeft = Array.get()->at(posPlayerX + 10).at(posPlayerZ + 12);
+			
+			if (nextNextPlaceLeft == '0') {
+				nextPlaceLeft = Array.get()->at(posPlayerX + 10).at(posPlayerZ + 11);
+				cout << nextNextPlaceLeft << endl;
+				player->move(MoveDirection::LEFT, 1.0f);
 
+				
+				//не двигается жопа
+				
+				mapObjects[posPlayerX + 10][posPlayerZ + 11]->move(MoveDirection::LEFT, 1.0f);
+				nextPlaceLeft = Array.get()->at(posPlayerX + 10).at(posPlayerZ + 11);
+			}
+			
 		}
-
 	}
 	else if (right) {
-		char nextPlaceRight = Array.get()->at(posX + 10).at(posZ + 9);
+		char nextPlaceRight = Array.get()->at(posPlayerX + 10).at(posPlayerZ + 9);
 		if (nextPlaceRight == '0') {
-			player->move(GameObject::MoveDirection::RIGHT, 1.0f);
-			nextPlaceRight = Array.get()->at(posX + 10).at(posZ + 9);
+			nextPlaceRight = Array.get()->at(posPlayerX + 10).at(posPlayerZ + 9);
+			player->move(MoveDirection::RIGHT, 1.0f);
+			nextPlaceRight = Array.get()->at(posPlayerX + 10).at(posPlayerZ + 9);
 		}
-		else if (nextPlaceRight == '1') {
-
-		}
+		
 	}
 	else if (up) {
-		char nextPlaceUp = Array.get()->at(posX + 9).at(posZ + 10);
+		char nextPlaceUp = Array.get()->at(posPlayerX + 9).at(posPlayerZ + 10);
 		if (nextPlaceUp == '0') {
-			player->move(GameObject::MoveDirection::UP, 1.0f);
-			nextPlaceUp = Array.get()->at(posX + 9).at(posZ + 10);
+			nextPlaceUp = Array.get()->at(posPlayerX + 9).at(posPlayerZ + 10);
+			player->move(MoveDirection::UP, 1.0f);
+			nextPlaceUp = Array.get()->at(posPlayerX + 9).at(posPlayerZ + 10);
 		}
-		else if (nextPlaceUp == '1') {
-
-		}
+		
 	}
 	else if (down) {
-		char nextPlaceDown = Array.get()->at(posX + 11).at(posZ + 10);
+		char nextPlaceDown = Array.get()->at(posPlayerX + 11).at(posPlayerZ + 10);
 		if (nextPlaceDown == '0') {
-			player->move(GameObject::MoveDirection::DOWN, 1.0f);
-			nextPlaceDown = Array.get()->at(posX + 11).at(posZ + 10);
+			nextPlaceDown = Array.get()->at(posPlayerX + 11).at(posPlayerZ + 10);
+			player->move(MoveDirection::DOWN, 1.0f);
+			nextPlaceDown = Array.get()->at(posPlayerX + 11).at(posPlayerZ + 10);
 		}
-		else if (nextPlaceDown == '1') {
-
-		}
+		
 		
 	}
 	
@@ -61,6 +71,7 @@ void movePlayer(bool left, bool right, bool up, bool down) {
 // функция вызывается каждые 20 мс
 void Simulation()
 {
+	
 	// ОПРЕДЕЛЕНИЕ ВРЕМЕНИ ПРОШЕДШЕГО С МОМЕНТА ПОСЛЕДНЕЙ СИМУЛЯЦИИ В СЕКУНДАХ
 	float deltaTime = GetSimulationTime();
 	// ПЕРЕМЕЩЕНИЕ КАМЕРЫ
@@ -80,7 +91,22 @@ void Simulation()
 	bool MoveDirectionDown = GetAsyncKeyState(0x53);  //S
 	bool MoveDirectionLeft = GetAsyncKeyState(0x41);  //A
 	bool MoveDirectionRight = GetAsyncKeyState(0x44); //D
+
 	movePlayer(MoveDirectionLeft, MoveDirectionRight, MoveDirectionUp, MoveDirectionDown);
+	for (int i = 0; i < SIZE; ++i) {
+		for (int j = 0; j < SIZE; ++j) {
+			//свободные клетки пропускаем
+			if ((Array.get()->at(i).at(j)) != '0') {
+				//объекты
+				mapObjects[i][j]->simulate(deltaTime);
+
+				//mapObjects[i][j]->move(MoveDirection::LEFT, 1.0f);
+			}
+
+		}
+
+	}
+
 	player->simulate(deltaTime);
 	// устанавливаем признак того, что окно нуждается в перерисовке
 	// эта же функция будет вызвана еще раз через 20 мс
@@ -127,9 +153,14 @@ void Display(void)
 			if ((Array.get()->at(i).at(j)) != '0'){
 				//объекты
 				mapObjects[i][j]->draw();
+				
+				//mapObjects[i][j]->move(MoveDirection::LEFT, 1.0f);
 			}
+		    
 		}
+
 	}
+	
 	player->draw();
 	//плоскость
 	planeGraphicObject.draw();

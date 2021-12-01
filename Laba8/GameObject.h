@@ -9,12 +9,12 @@
 #include <GL/glut.h>
 #include "GL/freeglut.h"
 using namespace std;
-
+// класс-перечисление дл¤ указани¤ направлени¤ перемещения
+enum class MoveDirection { STOP, LEFT, RIGHT, UP, DOWN };
 class GameObject
 {
 public:
-	// класс-перечисление для указания направления перемещения
-	enum class MoveDirection { STOP, LEFT, RIGHT, UP, DOWN };
+	
 	// конструктор
 	GameObject();
 	// установка используемого графического объекта
@@ -38,7 +38,7 @@ private:
 	float time;
 	// графический объект (для вывода на экран)
 	shared_ptr<GraphicObject> graphic;
-	// состо¤ние объекта (заданное направление перемещени¤)
+	// состояние объекта (заданное направление перемещения)
 	MoveDirection state;
 	// прогресс в перемещении (от 0.0 до 1.0)
 	float progress;

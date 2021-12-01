@@ -45,6 +45,7 @@ void GameObject::move(MoveDirection direction, float speed)
 {
 
 	this->speed = speed;
+	
 	switch (direction)
 	{
 	case MoveDirection::LEFT:

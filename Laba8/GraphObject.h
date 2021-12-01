@@ -18,6 +18,7 @@ private:
 	shared_ptr<PhongMaterial> material;
 	shared_ptr<Mesh> mesh;
 
+
 public:
 	// Позиция и угол поворота для объекта
 	GLfloat position[3];
@@ -37,5 +38,5 @@ public:
 	GLfloat modelMatrix[16] = { -1,0,0,0, 0,1,0,0, 0,0,-1,0, 0,0,0,1 };
 	// Установка используемого материала
 	void setMaterial(shared_ptr<PhongMaterial> material2);
-	void setMesh(shared_ptr<Mesh> mesh);
+	void setMesh(shared_ptr<Mesh> mesh);;
 };
