@@ -30,7 +30,7 @@ public:
 	void move(MoveDirection direction, float speed = 3.0f);
 	// метод вызываетс¤ непрерывно в функции simulation
 	void simulate(float sec);
-	// проверка на то, что объект в насто¤щий момент движетс¤
+	// проверка на то, что объект в настощий момент движетс¤
 	bool isMoving();
 private:
 	// логические координаты игрового объекта

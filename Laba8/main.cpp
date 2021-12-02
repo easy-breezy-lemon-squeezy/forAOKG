@@ -9,16 +9,25 @@ float GetSimulationTime() {
 	return (float(NewSimTik.QuadPart - OldSimTik.QuadPart)) / frequency.QuadPart;
 }
 void movePlayer(bool left, bool right, bool up, bool down) {
+
 	float* ptrvaluePlayer = player->getPosition();
 	int posPlayerX = int(ceil(ptrvaluePlayer[0]));
 	int posPlayerY = int(ceil(ptrvaluePlayer[1]));
 	int posPlayerZ = int(ceil(ptrvaluePlayer[2]));
+
+	//player->move(MoveDirection::STOP);
+
+	bool stateMovement = player->isMoving();
 	
+	cout << stateMovement << endl;
 	if (left) {
 		char nextPlaceLeft = Array.get()->at(posPlayerX + 10).at(posPlayerZ + 11);
 		if (nextPlaceLeft == '0') {
 			nextPlaceLeft = Array.get()->at(posPlayerX + 10).at(posPlayerZ + 11);
+			
 			player->move(MoveDirection::LEFT, 1.0f);
+			
+			
 			nextPlaceLeft = Array.get()->at(posPlayerX + 10).at(posPlayerZ + 11);
 		}
 		else if (nextPlaceLeft == '1') {
@@ -42,6 +51,7 @@ void movePlayer(bool left, bool right, bool up, bool down) {
 			}
 			
 		}
+
 	}
 	else if (right) {
 		char nextPlaceRight = Array.get()->at(posPlayerX + 10).at(posPlayerZ + 9);
