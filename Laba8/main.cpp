@@ -27,7 +27,7 @@ void movePlayer(bool left, bool right, bool up, bool down) {
 
 			if (nextNextPlaceLeft == '0') {
 				nextPlaceLeft = Array.get()->at(posPlayerX + 10).at(posPlayerZ + 11);
-				cout << nextNextPlaceLeft << endl;
+			
 				player->move(MoveDirection::LEFT, 1.0f);
 				
 				//не двигается жопа
@@ -105,11 +105,12 @@ void movePlayer(bool left, bool right, bool up, bool down) {
 		}
 		else if (nextPlaceDown == '1') {
 			char nextNextPlaceDown = Array.get()->at(posPlayerX + 12).at(posPlayerZ + 10);
-
+			
 			if (nextNextPlaceDown == '0') {
 				nextPlaceDown = Array.get()->at(posPlayerX + 11).at(posPlayerZ + 10);
 
-				player->move(MoveDirection::UP, 1.0f);
+				player->move(MoveDirection::DOWN, 1.0f);
+				mapObjects[posPlayerX + 11][posPlayerZ + 10]->move(MoveDirection::DOWN, 1.0f);
 
 				mapObjects[posPlayerX + 12][posPlayerZ + 10] = mapObjects[posPlayerX + 11][posPlayerZ + 10];
 				mapObjects[posPlayerX + 11][posPlayerZ + 10] = nullptr;
