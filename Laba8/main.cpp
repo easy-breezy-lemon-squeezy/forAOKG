@@ -2,7 +2,7 @@
 
 
 using namespace std;
-
+const GLfloat SIZE_ = 1.0f;
 float GetSimulationTime() {
 	OldSimTik = NewSimTik;
 	QueryPerformanceCounter(&NewSimTik);
@@ -15,12 +15,12 @@ void movePlayer(bool left, bool right, bool up, bool down) {
 	int posPlayerY = int(ceil(ptrvaluePlayer[1]));
 	int posPlayerZ = int(ceil(ptrvaluePlayer[2]));
 
-	//player->move(MoveDirection::STOP);
+	
 
 	bool stateMovement = player->isMoving();
 
-	cout << stateMovement << endl;
-	if (left) {
+	//cout << stateMovement << endl;
+	if (left && !player->isMoving()) {
 		
 		if (Array.get()->at(posPlayerX + 10).at(posPlayerZ + 11) == '0') {
 			player->move(MoveDirection::LEFT, 1.0f);
@@ -29,75 +29,66 @@ void movePlayer(bool left, bool right, bool up, bool down) {
 		}
 		else if (Array.get()->at(posPlayerX + 10).at(posPlayerZ + 11) == '1'&& Array.get()->at(posPlayerX + 10).at(posPlayerZ + 12) == '0') {
 			
+			player->move(MoveDirection::LEFT, 1.0f);
 
-		
-				player->move(MoveDirection::LEFT, 1.0f);
 
-				
-				mapObjects[posPlayerX + 10][posPlayerZ + 11]->move(MoveDirection::LEFT, 1.0f);
+			mapObjects[posPlayerX + 10][posPlayerZ + 11]->move(MoveDirection::LEFT, 1.0f);
 
-				mapObjects[posPlayerX + 10][posPlayerZ + 12] = mapObjects[posPlayerX + 10][posPlayerZ + 11];
-				mapObjects[posPlayerX + 10][posPlayerZ + 11] = nullptr;
-				Array.get()->at(posPlayerX + 10).at(posPlayerZ + 11) = '0';
-				Array.get()->at(posPlayerX + 10).at(posPlayerZ + 12) = '1';
-			
+			mapObjects[posPlayerX + 10][posPlayerZ + 12] = mapObjects[posPlayerX + 10][posPlayerZ + 11];
+			mapObjects[posPlayerX + 10][posPlayerZ + 11] = nullptr;
+			Array.get()->at(posPlayerX + 10).at(posPlayerZ + 11) = '0';
+			Array.get()->at(posPlayerX + 10).at(posPlayerZ + 12) = '1';
 
 		}
 
 	}
-	else if (right) {
+	else if (right && !player->isMoving()) {
 		if (Array.get()->at(posPlayerX + 10).at(posPlayerZ + 9) == '0') {
 			player->move(MoveDirection::RIGHT, 1.0f);
 		}
 		else if (Array.get()->at(posPlayerX + 10).at(posPlayerZ + 9) == '1' && Array.get()->at(posPlayerX + 10).at(posPlayerZ + 8) == '0') {
 
-				player->move(MoveDirection::RIGHT, 1.0f);
+			player->move(MoveDirection::RIGHT, 1.0f);
 
-				mapObjects[posPlayerX + 10][posPlayerZ + 9]->move(MoveDirection::RIGHT, 1.0f);
+			mapObjects[posPlayerX + 10][posPlayerZ + 9]->move(MoveDirection::RIGHT, 1.0f);
 
-				mapObjects[posPlayerX + 10][posPlayerZ + 8] = mapObjects[posPlayerX + 10][posPlayerZ + 9];
-				mapObjects[posPlayerX + 10][posPlayerZ + 9] = nullptr;
-				Array.get()->at(posPlayerX + 10).at(posPlayerZ + 9) = '0';
-				Array.get()->at(posPlayerX + 10).at(posPlayerZ + 8) = '1';
-			
+			mapObjects[posPlayerX + 10][posPlayerZ + 8] = mapObjects[posPlayerX + 10][posPlayerZ + 9];
+			mapObjects[posPlayerX + 10][posPlayerZ + 9] = nullptr;
+			Array.get()->at(posPlayerX + 10).at(posPlayerZ + 9) = '0';
+			Array.get()->at(posPlayerX + 10).at(posPlayerZ + 8) = '1';
 
 		}
 	}
-	else if (up) {
+	else if (up && !player->isMoving()) {
 		if (Array.get()->at(posPlayerX + 9).at(posPlayerZ + 10) == '0') {
 			player->move(MoveDirection::UP, 1.0f);
 		}
 		else if (Array.get()->at(posPlayerX + 9).at(posPlayerZ + 10) == '1'&& Array.get()->at(posPlayerX + 8).at(posPlayerZ + 10) == '0') {
-			
-				
-				player->move(MoveDirection::UP, 1.0f);
+					
+			player->move(MoveDirection::UP, 1.0f);
 
-				mapObjects[posPlayerX + 9][posPlayerZ + 10]->move(MoveDirection::UP, 1.0f);
+			mapObjects[posPlayerX + 9][posPlayerZ + 10]->move(MoveDirection::UP, 1.0f);
 
-				mapObjects[posPlayerX + 8][posPlayerZ + 10] = mapObjects[posPlayerX + 9][posPlayerZ + 10];
-				mapObjects[posPlayerX + 9][posPlayerZ + 10] = nullptr;
-				Array.get()->at(posPlayerX + 9).at(posPlayerZ + 10) = '0';
-				Array.get()->at(posPlayerX + 8).at(posPlayerZ + 10) = '1';
-
-			
+			mapObjects[posPlayerX + 8][posPlayerZ + 10] = mapObjects[posPlayerX + 9][posPlayerZ + 10];
+			mapObjects[posPlayerX + 9][posPlayerZ + 10] = nullptr;
+			Array.get()->at(posPlayerX + 9).at(posPlayerZ + 10) = '0';
+			Array.get()->at(posPlayerX + 8).at(posPlayerZ + 10) = '1';
 
 		}
 	}
-	else if (down) {
+	else if (down && !player->isMoving()) {
 		if (Array.get()->at(posPlayerX + 11).at(posPlayerZ + 10) == '0') {
 			player->move(MoveDirection::DOWN, 1.0f);
 		}
 		else if (Array.get()->at(posPlayerX + 11).at(posPlayerZ + 10) == '1' && Array.get()->at(posPlayerX + 12).at(posPlayerZ + 10) == '0') {
 		
-			
-				player->move(MoveDirection::DOWN, 1.0f);
-				mapObjects[posPlayerX + 11][posPlayerZ + 10]->move(MoveDirection::DOWN, 1.0f);
+			player->move(MoveDirection::DOWN, 1.0f);
+			mapObjects[posPlayerX + 11][posPlayerZ + 10]->move(MoveDirection::DOWN, 1.0f);
 
-				mapObjects[posPlayerX + 12][posPlayerZ + 10] = mapObjects[posPlayerX + 11][posPlayerZ + 10];
-				mapObjects[posPlayerX + 11][posPlayerZ + 10] = nullptr;
-				Array.get()->at(posPlayerX + 11).at(posPlayerZ + 10) = '0';
-				Array.get()->at(posPlayerX + 12).at(posPlayerZ + 10) = '1';
-			
+			mapObjects[posPlayerX + 12][posPlayerZ + 10] = mapObjects[posPlayerX + 11][posPlayerZ + 10];
+			mapObjects[posPlayerX + 11][posPlayerZ + 10] = nullptr;
+			Array.get()->at(posPlayerX + 11).at(posPlayerZ + 10) = '0';
+			Array.get()->at(posPlayerX + 12).at(posPlayerZ + 10) = '1';
 
 		}
 
@@ -129,7 +120,6 @@ void Simulation()
 	bool MoveDirectionRight = GetAsyncKeyState(0x44); //D
 
 	movePlayer(MoveDirectionLeft, MoveDirectionRight, MoveDirectionUp, MoveDirectionDown);
-
 	player->simulate(deltaTime);
 	for (int i = 0; i < SIZE; ++i) {
 		for (int j = 0; j < SIZE; ++j) {

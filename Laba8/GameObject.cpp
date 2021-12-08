@@ -2,6 +2,7 @@
 #include <iostream>
 
 using namespace std;
+float initPos = 0;
 
 GameObject::GameObject()
 {
@@ -74,16 +75,14 @@ void GameObject::simulate(float sec)
 	float posX = ptrvalue[0];
 	float posY = ptrvalue[1];
 	float posZ = ptrvalue[2];
+
 	if (this->state == MoveDirection::LEFT)
 	{
+		
 		if (this->progress < 1.0f)
 		{
 			this->progress += sec * this->speed;
-			cout << this->progress << endl;
-			//cout << posZ << endl;
-
-			this->graphic->setPosition(posX, posY, posZ + sec * 2 * this->progress);
-
+			this->graphic->setPosition(posX, posY, posZ);
 		}
 		else if (this->progress >= 1.0f)
 		{
@@ -94,7 +93,9 @@ void GameObject::simulate(float sec)
 			{
 				cout << "STOP" << endl;
 			}
-			this->setPosition(posX, posY, posZ);
+			//this->setPosition(posX, posY, posZ + 1);
+			this->setPosition(posX, posY, posZ - initPos + 1);
+			initPos = 0;
 			this->progress = 0.0f;
 		}
 	}
@@ -103,16 +104,16 @@ void GameObject::simulate(float sec)
 		if (this->progress < 1.0f)
 		{
 			this->progress += sec * this->speed;
-			cout << this->progress << endl;
-			//cout << posZ << endl;
 
-			this->graphic->setPosition(posX, posY, posZ - sec * 2 * this->progress);
+			initPos = initPos + (sec * 2 * this->progress);
+			this->graphic->setPosition(posX, posY, posZ);
 
 		}
 		else if (this->progress >= 1.0f)
 		{
 			this->state = MoveDirection::STOP;
-			this->setPosition(posX, posY, posZ);
+			this->setPosition(posX, posY, posZ - 1);
+			initPos = 0;
 			this->progress = 0.0f;
 		}
 	}
@@ -121,16 +122,13 @@ void GameObject::simulate(float sec)
 		if (this->progress < 1.0f)
 		{
 			this->progress += sec * this->speed;
-			//cout << this->progress << endl;
-			//cout << posZ << endl;
-
-			this->graphic->setPosition(posX - sec * 2 * this->progress, posY, posZ);
-
+			this->graphic->setPosition(posX, posY, posZ);
 		}
 		else if (this->progress >= 1.0f)
 		{
 			this->state = MoveDirection::STOP;
-			this->setPosition(posX, posY, posZ);
+			this->setPosition(posX - 1, posY, posZ);
+			initPos = 0;
 			this->progress = 0.0f;
 		}
 	}
@@ -139,16 +137,13 @@ void GameObject::simulate(float sec)
 		if (this->progress < 1.0f)
 		{
 			this->progress += sec * this->speed;
-			//cout << this->progress << endl;aa
-			//cout << posZ << endl;
-
-			this->graphic->setPosition(posX + sec * 2 * this->progress, posY, posZ);
-
+			this->graphic->setPosition(posX, posY, posZ);
 		}
 		else if (this->progress >= 1.0f)
 		{
 			this->state = MoveDirection::STOP;
-			this->setPosition(posX, posY, posZ);
+			this->setPosition(posX + 1, posY, posZ);
+			initPos = 0;
 			this->progress = 0.0f;
 		}
 	}

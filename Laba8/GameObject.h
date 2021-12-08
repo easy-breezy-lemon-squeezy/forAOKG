@@ -39,7 +39,7 @@ private:
 	// графический объект (для вывода на экран)
 	shared_ptr<GraphicObject> graphic;
 	// состояние объекта (заданное направление перемещения)
-	MoveDirection state;
+	MoveDirection state = MoveDirection::STOP;
 	// прогресс в перемещении (от 0.0 до 1.0)
 	float progress;
 	// скорость перемещения
