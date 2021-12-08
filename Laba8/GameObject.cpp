@@ -46,7 +46,7 @@ void GameObject::move(MoveDirection direction, float speed)
 {
 
 	this->speed = speed;
-	
+
 	switch (direction)
 	{
 	case MoveDirection::LEFT:
@@ -61,11 +61,8 @@ void GameObject::move(MoveDirection direction, float speed)
 	case MoveDirection::DOWN:
 		this->state = MoveDirection::DOWN;
 		break;
-	case MoveDirection::STOP:
-		this->state = MoveDirection::STOP;
-		break;
 	}
-	
+
 }
 
 void GameObject::simulate(float sec)
@@ -84,13 +81,13 @@ void GameObject::simulate(float sec)
 			this->progress += sec * this->speed;
 			cout << this->progress << endl;
 			//cout << posZ << endl;
-		
-			this->graphic->setPosition(posX, posY, posZ + sec * 2* this->progress);
-		
+
+			this->graphic->setPosition(posX, posY, posZ + sec * 2 * this->progress);
+
 		}
 		else if (this->progress >= 1.0f)
 		{
-		
+
 			this->state = MoveDirection::STOP;
 
 			if (this->state == MoveDirection::STOP)
@@ -127,7 +124,7 @@ void GameObject::simulate(float sec)
 			//cout << this->progress << endl;
 			//cout << posZ << endl;
 
-			this->graphic->setPosition(posX -  sec * 2 * this->progress, posY, posZ);
+			this->graphic->setPosition(posX - sec * 2 * this->progress, posY, posZ);
 
 		}
 		else if (this->progress >= 1.0f)
@@ -155,5 +152,5 @@ void GameObject::simulate(float sec)
 			this->progress = 0.0f;
 		}
 	}
-	
+
 }

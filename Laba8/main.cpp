@@ -1,4 +1,4 @@
-#include "Data.h"
+п»ї#include "Data.h"
 
 
 using namespace std;
@@ -18,107 +18,78 @@ void movePlayer(bool left, bool right, bool up, bool down) {
 	//player->move(MoveDirection::STOP);
 
 	bool stateMovement = player->isMoving();
-	
+
 	cout << stateMovement << endl;
 	if (left) {
-		char nextPlaceLeft = Array.get()->at(posPlayerX + 10).at(posPlayerZ + 11);
-		if (nextPlaceLeft == '0') {
-			nextPlaceLeft = Array.get()->at(posPlayerX + 10).at(posPlayerZ + 11);
-			
+		
+		if (Array.get()->at(posPlayerX + 10).at(posPlayerZ + 11) == '0') {
 			player->move(MoveDirection::LEFT, 1.0f);
-			
-			
-			nextPlaceLeft = Array.get()->at(posPlayerX + 10).at(posPlayerZ + 11);
+
+
 		}
-		else if (nextPlaceLeft == '1') {
-			char nextNextPlaceLeft = Array.get()->at(posPlayerX + 10).at(posPlayerZ + 12);
+		else if (Array.get()->at(posPlayerX + 10).at(posPlayerZ + 11) == '1'&& Array.get()->at(posPlayerX + 10).at(posPlayerZ + 12) == '0') {
 			
 
-			if (nextNextPlaceLeft == '0') {
-				nextPlaceLeft = Array.get()->at(posPlayerX + 10).at(posPlayerZ + 11);
-			
+		
 				player->move(MoveDirection::LEFT, 1.0f);
-				
-				//не двигается жопа
+
 				
 				mapObjects[posPlayerX + 10][posPlayerZ + 11]->move(MoveDirection::LEFT, 1.0f);
-				
+
 				mapObjects[posPlayerX + 10][posPlayerZ + 12] = mapObjects[posPlayerX + 10][posPlayerZ + 11];
 				mapObjects[posPlayerX + 10][posPlayerZ + 11] = nullptr;
 				Array.get()->at(posPlayerX + 10).at(posPlayerZ + 11) = '0';
 				Array.get()->at(posPlayerX + 10).at(posPlayerZ + 12) = '1';
-				nextPlaceLeft = Array.get()->at(posPlayerX + 10).at(posPlayerZ + 11);
-			}
 			
+
 		}
 
 	}
 	else if (right) {
-		char nextPlaceRight = Array.get()->at(posPlayerX + 10).at(posPlayerZ + 9);
-		if (nextPlaceRight == '0') {
-			nextPlaceRight = Array.get()->at(posPlayerX + 10).at(posPlayerZ + 9);
+		if (Array.get()->at(posPlayerX + 10).at(posPlayerZ + 9) == '0') {
 			player->move(MoveDirection::RIGHT, 1.0f);
-			nextPlaceRight = Array.get()->at(posPlayerX + 10).at(posPlayerZ + 9);
 		}
-		else if (nextPlaceRight == '1') {
-			char nextNextPlaceRight = Array.get()->at(posPlayerX + 10).at(posPlayerZ + 8);
+		else if (Array.get()->at(posPlayerX + 10).at(posPlayerZ + 9) == '1' && Array.get()->at(posPlayerX + 10).at(posPlayerZ + 8) == '0') {
 
-			if (nextNextPlaceRight == '0') {
-				nextPlaceRight = Array.get()->at(posPlayerX + 10).at(posPlayerZ + 9);
-			
 				player->move(MoveDirection::RIGHT, 1.0f);
 
 				mapObjects[posPlayerX + 10][posPlayerZ + 9]->move(MoveDirection::RIGHT, 1.0f);
-				
+
 				mapObjects[posPlayerX + 10][posPlayerZ + 8] = mapObjects[posPlayerX + 10][posPlayerZ + 9];
 				mapObjects[posPlayerX + 10][posPlayerZ + 9] = nullptr;
 				Array.get()->at(posPlayerX + 10).at(posPlayerZ + 9) = '0';
 				Array.get()->at(posPlayerX + 10).at(posPlayerZ + 8) = '1';
-				nextPlaceRight = Array.get()->at(posPlayerX + 10).at(posPlayerZ + 9);
-			}
+			
 
 		}
 	}
 	else if (up) {
-		char nextPlaceUp = Array.get()->at(posPlayerX + 9).at(posPlayerZ + 10);
-		if (nextPlaceUp == '0') {
-			nextPlaceUp = Array.get()->at(posPlayerX + 9).at(posPlayerZ + 10);
+		if (Array.get()->at(posPlayerX + 9).at(posPlayerZ + 10) == '0') {
 			player->move(MoveDirection::UP, 1.0f);
-			nextPlaceUp = Array.get()->at(posPlayerX + 9).at(posPlayerZ + 10);
 		}
-		else if (nextPlaceUp == '1') {
-			char nextNextPlaceRight = Array.get()->at(posPlayerX + 8).at(posPlayerZ + 10);
-
-			if (nextNextPlaceRight == '0') {
-				nextPlaceUp = Array.get()->at(posPlayerX + 9).at(posPlayerZ + 10);
-
+		else if (Array.get()->at(posPlayerX + 9).at(posPlayerZ + 10) == '1'&& Array.get()->at(posPlayerX + 8).at(posPlayerZ + 10) == '0') {
+			
+				
 				player->move(MoveDirection::UP, 1.0f);
 
 				mapObjects[posPlayerX + 9][posPlayerZ + 10]->move(MoveDirection::UP, 1.0f);
-				
+
 				mapObjects[posPlayerX + 8][posPlayerZ + 10] = mapObjects[posPlayerX + 9][posPlayerZ + 10];
 				mapObjects[posPlayerX + 9][posPlayerZ + 10] = nullptr;
 				Array.get()->at(posPlayerX + 9).at(posPlayerZ + 10) = '0';
 				Array.get()->at(posPlayerX + 8).at(posPlayerZ + 10) = '1';
 
-				nextPlaceUp = Array.get()->at(posPlayerX + 9).at(posPlayerZ + 10);
-			}
+			
 
 		}
 	}
 	else if (down) {
-		char nextPlaceDown = Array.get()->at(posPlayerX + 11).at(posPlayerZ + 10);
-		if (nextPlaceDown == '0') {
-			nextPlaceDown = Array.get()->at(posPlayerX + 11).at(posPlayerZ + 10);
+		if (Array.get()->at(posPlayerX + 11).at(posPlayerZ + 10) == '0') {
 			player->move(MoveDirection::DOWN, 1.0f);
-			nextPlaceDown = Array.get()->at(posPlayerX + 11).at(posPlayerZ + 10);
 		}
-		else if (nextPlaceDown == '1') {
-			char nextNextPlaceDown = Array.get()->at(posPlayerX + 12).at(posPlayerZ + 10);
+		else if (Array.get()->at(posPlayerX + 11).at(posPlayerZ + 10) == '1' && Array.get()->at(posPlayerX + 12).at(posPlayerZ + 10) == '0') {
+		
 			
-			if (nextNextPlaceDown == '0') {
-				nextPlaceDown = Array.get()->at(posPlayerX + 11).at(posPlayerZ + 10);
-
 				player->move(MoveDirection::DOWN, 1.0f);
 				mapObjects[posPlayerX + 11][posPlayerZ + 10]->move(MoveDirection::DOWN, 1.0f);
 
@@ -126,21 +97,20 @@ void movePlayer(bool left, bool right, bool up, bool down) {
 				mapObjects[posPlayerX + 11][posPlayerZ + 10] = nullptr;
 				Array.get()->at(posPlayerX + 11).at(posPlayerZ + 10) = '0';
 				Array.get()->at(posPlayerX + 12).at(posPlayerZ + 10) = '1';
-				nextPlaceDown = Array.get()->at(posPlayerX + 11).at(posPlayerZ + 10);
-			}
+			
 
 		}
-		
+
 	}
-	
+
 }
-// функция вызывается каждые 20 мс
+// С„СѓРЅРєС†РёСЏ РІС‹Р·С‹РІР°РµС‚СЃСЏ РєР°Р¶РґС‹Рµ 20 РјСЃ
 void Simulation()
 {
 	
-	// ОПРЕДЕЛЕНИЕ ВРЕМЕНИ ПРОШЕДШЕГО С МОМЕНТА ПОСЛЕДНЕЙ СИМУЛЯЦИИ В СЕКУНДАХ
+	// РћРџР Р•Р”Р•Р›Р•РќРР• Р’Р Р•РњР•РќР РџР РћРЁР•Р”РЁР•Р“Рћ РЎ РњРћРњР•РќРўРђ РџРћРЎР›Р•Р”РќР•Р™ РЎРРњРЈР›РЇР¦РР Р’ РЎР•РљРЈРќР”РђРҐ
 	float deltaTime = GetSimulationTime();
-	// ПЕРЕМЕЩЕНИЕ КАМЕРЫ
+	// РџР•Р Р•РњР•Р©Р•РќРР• РљРђРњР•Р Р«
 	bool CameraLeft = GetAsyncKeyState(VK_LEFT);
 	bool CameraRight = GetAsyncKeyState(VK_RIGHT);
 	bool CameraUp = GetAsyncKeyState(VK_UP);
@@ -152,7 +122,7 @@ void Simulation()
 		CameraForward, CameraBackward);
 	camera.simulate(deltaTime);
 
-	//перемещение игрока
+	//РїРµСЂРµРјРµС‰РµРЅРёРµ РёРіСЂРѕРєР°
 	bool MoveDirectionUp = GetAsyncKeyState(0x57); //W
 	bool MoveDirectionDown = GetAsyncKeyState(0x53);  //S
 	bool MoveDirectionLeft = GetAsyncKeyState(0x41);  //A
@@ -163,9 +133,9 @@ void Simulation()
 	player->simulate(deltaTime);
 	for (int i = 0; i < SIZE; ++i) {
 		for (int j = 0; j < SIZE; ++j) {
-			//свободные клетки пропускаем
+			//СЃРІРѕР±РѕРґРЅС‹Рµ РєР»РµС‚РєРё РїСЂРѕРїСѓСЃРєР°РµРј
 			if ((Array.get()->at(i).at(j)) != '0') {
-				//объекты
+				//РѕР±СЉРµРєС‚С‹
 				mapObjects[i][j]->simulate(deltaTime);
 
 			}
@@ -173,37 +143,37 @@ void Simulation()
 		}
 
 	}
-	// устанавливаем признак того, что окно нуждается в перерисовке
-	// эта же функция будет вызвана еще раз через 20 мс
+	// СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РїСЂРёР·РЅР°Рє С‚РѕРіРѕ, С‡С‚Рѕ РѕРєРЅРѕ РЅСѓР¶РґР°РµС‚СЃСЏ РІ РїРµСЂРµСЂРёСЃРѕРІРєРµ
+	// СЌС‚Р° Р¶Рµ С„СѓРЅРєС†РёСЏ Р±СѓРґРµС‚ РІС‹Р·РІР°РЅР° РµС‰Рµ СЂР°Р· С‡РµСЂРµР· 20 РјСЃ
 	glutPostRedisplay();
 };
 
-// функция, вызываемая при изменении размеров окна
+// С„СѓРЅРєС†РёСЏ, РІС‹Р·С‹РІР°РµРјР°СЏ РїСЂРё РёР·РјРµРЅРµРЅРёРё СЂР°Р·РјРµСЂРѕРІ РѕРєРЅР°
 void Reshape(int w, int h)
 {
-	// установить новую область просмотра, равную всей области окна
+	// СѓСЃС‚Р°РЅРѕРІРёС‚СЊ РЅРѕРІСѓСЋ РѕР±Р»Р°СЃС‚СЊ РїСЂРѕСЃРјРѕС‚СЂР°, СЂР°РІРЅСѓСЋ РІСЃРµР№ РѕР±Р»Р°СЃС‚Рё РѕРєРЅР°
 	glViewport(0, 0, (GLsizei)w, (GLsizei)h);
-	// установить матрицу проекции с правильным аспектом
+	// СѓСЃС‚Р°РЅРѕРІРёС‚СЊ РјР°С‚СЂРёС†Сѓ РїСЂРѕРµРєС†РёРё СЃ РїСЂР°РІРёР»СЊРЅС‹Рј Р°СЃРїРµРєС‚РѕРј
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(25.0, (float)w / h, 0.2, 70.0);
 };
 
-// функция вызывается при перерисовке окна
-// в том числе и принудительно, по командам glutPostRedisplay
+// С„СѓРЅРєС†РёСЏ РІС‹Р·С‹РІР°РµС‚СЃСЏ РїСЂРё РїРµСЂРµСЂРёСЃРѕРІРєРµ РѕРєРЅР°
+// РІ С‚РѕРј С‡РёСЃР»Рµ Рё РїСЂРёРЅСѓРґРёС‚РµР»СЊРЅРѕ, РїРѕ РєРѕРјР°РЅРґР°Рј glutPostRedisplay
 void Display(void)
 {
-	// отчищаем буфер цвета
+	// РѕС‚С‡РёС‰Р°РµРј Р±СѓС„РµСЂ С†РІРµС‚Р°
 	glClearColor(0.0, 0.0, 0.0, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	// устанавливаем общую фоновую освещенность
+	// СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РѕР±С‰СѓСЋ С„РѕРЅРѕРІСѓСЋ РѕСЃРІРµС‰РµРЅРЅРѕСЃС‚СЊ
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, globalAmbientColor);
 
-	// включаем режим расчета освещения
+	// РІРєР»СЋС‡Р°РµРј СЂРµР¶РёРј СЂР°СЃС‡РµС‚Р° РѕСЃРІРµС‰РµРЅРёСЏ
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
-	// устанавливаем камеру
+	// СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РєР°РјРµСЂСѓ
 	camera.apply();
 	
 	light.setPosition(0, 2, 0);
@@ -211,15 +181,13 @@ void Display(void)
 	light.setAmbient(0.7, 0.7, 0.7, 1.0);
 	light.setSpecular(0.7, 0.7, 0.7, 1.0);
 	light.apply();
-	// выводим объекты
+	// РІС‹РІРѕРґРёРј РѕР±СЉРµРєС‚С‹
 	for (int i = 0; i < SIZE; ++i) {
 		for (int j = 0; j < SIZE; ++j) {
-			//свободные клетки пропускаем
+			//СЃРІРѕР±РѕРґРЅС‹Рµ РєР»РµС‚РєРё РїСЂРѕРїСѓСЃРєР°РµРј
 			if ((Array.get()->at(i).at(j)) != '0'){
-				//объекты
+				//РѕР±СЉРµРєС‚С‹
 				mapObjects[i][j]->draw();
-				
-				//mapObjects[i][j]->move(MoveDirection::LEFT, 1.0f);
 			}
 		    
 		}
@@ -227,13 +195,13 @@ void Display(void)
 	}
 	
 	player->draw();
-	//плоскость
+	//РїР»РѕСЃРєРѕСЃС‚СЊ
 	planeGraphicObject.draw();
-	// смена переднего и заднего буферов
+	// СЃРјРµРЅР° РїРµСЂРµРґРЅРµРіРѕ Рё Р·Р°РґРЅРµРіРѕ Р±СѓС„РµСЂРѕРІ
 	glutSwapBuffers();
 };
 
-// Функция обработки нажатия клавиш
+// Р¤СѓРЅРєС†РёСЏ РѕР±СЂР°Р±РѕС‚РєРё РЅР°Р¶Р°С‚РёСЏ РєР»Р°РІРёС€
 void KeyboardFunc(unsigned char key, int x, int y)
 {
 	
@@ -242,28 +210,28 @@ void KeyboardFunc(unsigned char key, int x, int y)
 
 int main(int argc, char* argv[]) {
 	
-	// инициализация библиотеки GLUT
+	// РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ Р±РёР±Р»РёРѕС‚РµРєРё GLUT
 	glutInit(&argc, argv);
-	// инициализация дисплея (формат вывода)
+	// РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РґРёСЃРїР»РµСЏ (С„РѕСЂРјР°С‚ РІС‹РІРѕРґР°)
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_MULTISAMPLE);
-	// создание окна:
-// 1. устанавливаем верхний левый угол окна
+	// СЃРѕР·РґР°РЅРёРµ РѕРєРЅР°:
+// 1. СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РІРµСЂС…РЅРёР№ Р»РµРІС‹Р№ СѓРіРѕР» РѕРєРЅР°
 	glutInitWindowPosition(200, 200);
 
-	// 2. устанавливаем размер окна
+	// 2. СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј СЂР°Р·РјРµСЂ РѕРєРЅР°
 	glutInitWindowSize(800, 600);
-	// 3. создаем окно
+	// 3. СЃРѕР·РґР°РµРј РѕРєРЅРѕ
 	glutCreateWindow("laba6");
 	initGlew();
 	initData();
 	
-	// устанавливаем функцию, которая будет вызываться для перерисовки окна
+	// СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј С„СѓРЅРєС†РёСЋ, РєРѕС‚РѕСЂР°СЏ Р±СѓРґРµС‚ РІС‹Р·С‹РІР°С‚СЊСЃСЏ РґР»СЏ РїРµСЂРµСЂРёСЃРѕРІРєРё РѕРєРЅР°
 	glutDisplayFunc(Display);
-	// устанавливаем функцию, которая будет вызываться при изменении размеров окна
+	// СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј С„СѓРЅРєС†РёСЋ, РєРѕС‚РѕСЂР°СЏ Р±СѓРґРµС‚ РІС‹Р·С‹РІР°С‚СЊСЃСЏ РїСЂРё РёР·РјРµРЅРµРЅРёРё СЂР°Р·РјРµСЂРѕРІ РѕРєРЅР°
 	glutReshapeFunc(Reshape);
-	// устанавливаем функцию которая будет вызвана через 20 мс
+	// СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј С„СѓРЅРєС†РёСЋ РєРѕС‚РѕСЂР°СЏ Р±СѓРґРµС‚ РІС‹Р·РІР°РЅР° С‡РµСЂРµР· 20 РјСЃ
 	glutIdleFunc(Simulation);
-	// устанавливаем функцию, которая будет вызываться при нажатии на клавишу
+	// СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј С„СѓРЅРєС†РёСЋ, РєРѕС‚РѕСЂР°СЏ Р±СѓРґРµС‚ РІС‹Р·С‹РІР°С‚СЊСЃСЏ РїСЂРё РЅР°Р¶Р°С‚РёРё РЅР° РєР»Р°РІРёС€Сѓ
 	glutKeyboardFunc(KeyboardFunc);
 	QueryPerformanceCounter(&NewSimTik);
 	QueryPerformanceFrequency(&frequency);
