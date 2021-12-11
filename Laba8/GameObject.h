@@ -27,6 +27,8 @@ public:
 	// получение текущих логических координат
 	// вывод игрового объекта на экран
 	void draw(void);
+	float getX();
+	float getY();
 	void move(MoveDirection direction, float speed = 3.0f);
 	// метод вызываетс¤ непрерывно в функции simulation
 	void simulate(float sec);

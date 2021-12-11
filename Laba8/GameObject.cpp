@@ -27,6 +27,7 @@ void GameObject::draw() {
 }
 
 float* GameObject::getPosition() {
+
 	return graphic->getPosition();
 }
 
@@ -78,24 +79,19 @@ void GameObject::simulate(float sec)
 
 	if (this->state == MoveDirection::LEFT)
 	{
-		
 		if (this->progress < 1.0f)
 		{
 			this->progress += sec * this->speed;
-			this->graphic->setPosition(posX, posY, posZ);
+			this->graphic->setPosition(posX, posY, posZ + sec * 2 * this->progress);
 		}
 		else if (this->progress >= 1.0f)
 		{
-
 			this->state = MoveDirection::STOP;
-
 			if (this->state == MoveDirection::STOP)
 			{
 				cout << "STOP" << endl;
 			}
-			//this->setPosition(posX, posY, posZ + 1);
-			this->setPosition(posX, posY, posZ - initPos + 1);
-			initPos = 0;
+			this->setPosition(posX, posY, floor(posZ));
 			this->progress = 0.0f;
 		}
 	}
@@ -104,16 +100,12 @@ void GameObject::simulate(float sec)
 		if (this->progress < 1.0f)
 		{
 			this->progress += sec * this->speed;
-
-			initPos = initPos + (sec * 2 * this->progress);
-			this->graphic->setPosition(posX, posY, posZ);
-
+			this->graphic->setPosition(posX, posY, posZ - sec * 2 * this->progress);
 		}
 		else if (this->progress >= 1.0f)
 		{
 			this->state = MoveDirection::STOP;
-			this->setPosition(posX, posY, posZ - 1);
-			initPos = 0;
+			this->setPosition(posX, posY, ceil(posZ));
 			this->progress = 0.0f;
 		}
 	}
@@ -122,13 +114,12 @@ void GameObject::simulate(float sec)
 		if (this->progress < 1.0f)
 		{
 			this->progress += sec * this->speed;
-			this->graphic->setPosition(posX, posY, posZ);
+			this->graphic->setPosition(posX - sec * 2 * this->progress, posY, posZ);
 		}
 		else if (this->progress >= 1.0f)
 		{
 			this->state = MoveDirection::STOP;
-			this->setPosition(posX - 1, posY, posZ);
-			initPos = 0;
+			this->setPosition(ceil(posX), posY, posZ);
 			this->progress = 0.0f;
 		}
 	}
@@ -137,13 +128,12 @@ void GameObject::simulate(float sec)
 		if (this->progress < 1.0f)
 		{
 			this->progress += sec * this->speed;
-			this->graphic->setPosition(posX, posY, posZ);
+			this->graphic->setPosition(posX + sec * 2 * this->progress, posY, posZ);
 		}
 		else if (this->progress >= 1.0f)
 		{
 			this->state = MoveDirection::STOP;
-			this->setPosition(posX + 1, posY, posZ);
-			initPos = 0;
+			this->setPosition(floor(posX), posY, posZ);
 			this->progress = 0.0f;
 		}
 	}
