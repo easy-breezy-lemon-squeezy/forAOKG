@@ -69,9 +69,7 @@ void GameObject::move(MoveDirection direction, float speed)
 
 void GameObject::simulate(float sec)
 {
-	/*if (this->state == MoveDirection::STOP) {
-		cout << "STOP" << endl;
-	}*/
+	
 	float* ptrvalue = getPosition();
 	float posX = ptrvalue[0];
 	float posY = ptrvalue[1];
@@ -82,15 +80,13 @@ void GameObject::simulate(float sec)
 		if (this->progress < 1.0f)
 		{
 			this->progress += sec * this->speed;
+			cout << posZ << endl;
 			this->graphic->setPosition(posX, posY, posZ + sec * 2 * this->progress);
 		}
 		else if (this->progress >= 1.0f)
 		{
+			cout << floor(posZ) << endl;
 			this->state = MoveDirection::STOP;
-			if (this->state == MoveDirection::STOP)
-			{
-				cout << "STOP" << endl;
-			}
 			this->setPosition(posX, posY, floor(posZ));
 			this->progress = 0.0f;
 		}

@@ -116,7 +116,7 @@ void Simulation()
 	bool MoveDirectionLeft = GetAsyncKeyState(0x41);  //A
 	bool MoveDirectionRight = GetAsyncKeyState(0x44); //D
 
-	movePlayer(MoveDirectionLeft, MoveDirectionRight, MoveDirectionUp, MoveDirectionDown);
+	movePlayer(MoveDirectionDown, MoveDirectionUp, MoveDirectionLeft, MoveDirectionRight);
 	player->simulate(deltaTime);
 	for (int i = 0; i < SIZE; ++i) {
 		for (int j = 0; j < SIZE; ++j) {

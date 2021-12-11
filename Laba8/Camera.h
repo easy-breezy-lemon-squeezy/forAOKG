@@ -14,7 +14,7 @@ private:
 
 	float radius;
 	bool left, right, up, down, forward, backward, w, s;
-	float time, x, y, z, alpha = 45, beta = 45;
+	float time, x, y, z, alpha = 92.5, beta = 90;
 public:
 	// конструктор по умолчанию
 	Camera();
