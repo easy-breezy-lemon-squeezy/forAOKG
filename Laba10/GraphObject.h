@@ -15,7 +15,7 @@ private:
 	// Цвет модели
 	GLfloat color[3];
 	// Используемый материал
-	shared_ptr<PhongMaterial> material;
+	shared_ptr<Material> material;
 	shared_ptr<Mesh> mesh;
 
 public:
@@ -34,6 +34,6 @@ public:
 	// Матрица модели (расположение объекта) ‐ чтоб не вычислять каждый раз
 	GLfloat modelMatrix[16] = { -1,0,0,0, 0,1,0,0, 0,0,-1,0, 0,0,0,1 };
 	// Установка используемого материала
-	void setMaterial(shared_ptr<PhongMaterial> material2);
+	void setMaterial(shared_ptr<Material> material2);
 	void setMesh(shared_ptr<Mesh> mesh);
 };
