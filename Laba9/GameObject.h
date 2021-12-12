@@ -8,6 +8,7 @@
 #include <GL/gl.h>
 #include "freeglut/include/GL/glut.h"
 #include "freeglut/include/GL/freeglut.h"
+#include <time.h>
 using namespace std;
 
 // класс-перечисление для указания направления перемещения
@@ -33,11 +34,9 @@ public:
 	// начать движение в выбранном направлении с указанной скоростью 
 	// скорость передвижения определяется количеством клеток в секунду
 	void move(MoveDirection direction, float speed = 10.0f);
-
 	// симуляция игрового объекта (плавное перемещение объекта)
 	// метод вызывается непрерывно в функции simulation
 	void simulate(float sec);
-
 	// проверка на то, что объект в настоящий момент движется
 	bool isMoving();
 private:
@@ -51,4 +50,20 @@ private:
 	float progress=0.0f;
 	// скорость перемещения
 	float speed;
+};
+class Monster : public GameObject
+{
+public:
+	Monster();
+	// установить прошлые координаты
+	void setLastStand(int x, int y);
+	// получить прошлые координаты
+	int getX();
+	int getY();
+	// перемещение монстров
+	void monsterSimulation();
+
+private:
+	// прошлые координаты для монстра
+	int x, y;
 };

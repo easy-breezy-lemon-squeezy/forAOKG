@@ -67,6 +67,9 @@ void Display(void)
 		}
 
 	}
+	enemy[0].get()->draw();
+	enemy[1].get()->draw();
+	enemy[2].get()->draw();
 	player->draw();
 	drawPlane();
 	// смена переднего и заднего буферов

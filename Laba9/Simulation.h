@@ -10,6 +10,7 @@ extern int passabilityMap[21][21];
 extern Camera camera;
 extern std::shared_ptr <GameObject> player;
 extern std::shared_ptr <GameObject> mapObjects[21][21];
+//extern std::shared_ptr <Monster> enemy[3];
 extern shared_ptr<vector<vector<char>>> Array;
 extern enum class MoveDirection;
 extern int real;

@@ -1,5 +1,6 @@
 #include "GameObject.h"
 
+
 using namespace std;
 
 GameObject::GameObject() {}
@@ -122,4 +123,139 @@ void GameObject::move(MoveDirection direction, float speed)
 		state = MoveDirection::DOWN;
 		break;
 	}
+}
+
+Monster::Monster() {}
+
+void Monster::setLastStand(int x, int y)
+{
+	this->x = x;
+	this->y = y;
+}
+
+int Monster::getX() {
+	return x;
+}
+
+int Monster::getY() {
+	return y;
+}
+void Monster::monsterSimulation()
+{
+	srand(time(NULL));
+
+	/*if (!this->isMoving())
+	{
+		if (passabilityMap[int(this->getPositon().x + 1)][int(this->getPositon().y)] > 0 &&
+			passabilityMap[int(this->getPositon().x - 1)][int(this->getPositon().y)] > 0 &&
+			passabilityMap[int(this->getPositon().x)][int(this->getPositon().y + 1)] > 0)
+		{
+			this->move(MoveDirection::UP, 1.0f);
+			this->setLastStand(this->getPositon());
+		}
+		else
+			if (passabilityMap[int(this->getPositon().x + 1)][int(this->getPositon().y)] > 0 &&
+				passabilityMap[int(this->getPositon().x - 1)][int(this->getPositon().y)] > 0 &&
+				passabilityMap[int(this->getPositon().x)][int(this->getPositon().y - 1)] > 0)
+			{
+				this->move(MoveDirection::DOWN, 1.0f);
+				this->setLastStand(this->getPositon());
+			}
+			else
+				if (passabilityMap[int(this->getPositon().x + 1)][int(this->getPositon().y)] > 0 &&
+					passabilityMap[int(this->getPositon().x)][int(this->getPositon().y - 1)] > 0 &&
+					passabilityMap[int(this->getPositon().x)][int(this->getPositon().y + 1)] > 0)
+				{
+					this->move(MoveDirection::LEFT, 1.0f);
+					this->setLastStand(this->getPositon());
+				}
+				else
+					if (passabilityMap[int(this->getPositon().x - 1)][int(this->getPositon().y)] > 0 &&
+						passabilityMap[int(this->getPositon().x)][int(this->getPositon().y - 1)] > 0 &&
+						passabilityMap[int(this->getPositon().x)][int(this->getPositon().y + 1)] > 0)
+					{
+						this->move(MoveDirection::RIGHT, 1.0f);
+						this->setLastStand(this->getPositon());
+					}
+					else
+					{
+						if (passabilityMap[int(this->getPositon().x + 1)][int(this->getPositon().y)] > 0 &&
+							passabilityMap[int(this->getPositon().x - 1)][int(this->getPositon().y)] > 0)
+						{
+							if (this->getLastStand().x == this->getPositon().x && this->getLastStand().y == this->getPositon().y + 1)
+							{
+								this->move(MoveDirection::UP, 1.0f);
+								this->setLastStand(this->getPositon());
+							}
+							else
+							{
+								this->move(MoveDirection::DOWN, 1.0f);
+								this->setLastStand(this->getPositon());
+							}
+						}
+						else
+							if (passabilityMap[int(this->getPositon().x)][int(this->getPositon().y + 1)] > 0 &&
+								passabilityMap[int(this->getPositon().x)][int(this->getPositon().y - 1)] > 0)
+							{
+								if (this->getLastStand().x == this->getPositon().x + 1 && this->getLastStand().y == this->getPositon().y)
+								{
+									this->move(MoveDirection::LEFT, 1.0f);
+									this->setLastStand(this->getPositon());
+								}
+								else
+								{
+									this->move(MoveDirection::RIGHT, 1.0f);
+									this->setLastStand(this->getPositon());
+								}
+							}
+							else
+							{
+								int direction = rand() % 4;
+
+								switch (direction)
+								{
+								case 0:
+									if (passabilityMap[int(this->getPositon().x + 1)][int(this->getPositon().y)] == 0)
+									{
+										if (!(this->getLastStand().x == this->getPositon().x + 1 && this->getLastStand().y == this->getPositon().y))
+										{
+											this->move(MoveDirection::RIGHT, 1.0f);
+											this->setLastStand(this->getPositon());
+										}
+									}
+									break;
+								case 1:
+									if (passabilityMap[int(this->getPositon().x)][int(this->getPositon().y) + 1] == 0)
+									{
+										if (!(this->getLastStand().x == this->getPositon().x && this->getLastStand().y == this->getPositon().y + 1))
+										{
+											this->move(MoveDirection::DOWN, 1.0f);
+											this->setLastStand(this->getPositon());
+										}
+									}
+									break;
+								case 2:
+									if (passabilityMap[int(this->getPositon().x - 1)][int(this->getPositon().y)] == 0)
+									{
+										if (!(this->getLastStand().x == this->getPositon().x - 1 && this->getLastStand().y == this->getPositon().y))
+										{
+											this->move(MoveDirection::LEFT, 1.0f);
+											this->setLastStand(this->getPositon());
+										}
+									}
+									break;
+								case 3:
+									if (passabilityMap[int(this->getPositon().x)][int(this->getPositon().y - 1)] == 0)
+									{
+										if (!(this->getLastStand().x == this->getPositon().x && this->getLastStand().y == this->getPositon().y - 1))
+										{
+											this->setLastStand(this->getPositon());
+											this->move(MoveDirection::UP, 1.0f);
+										}
+									}
+									break;
+								}
+							}
+					}
+	}*/
 }

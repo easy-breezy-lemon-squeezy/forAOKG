@@ -178,3 +178,12 @@ shared_ptr<GameObject> GameObjectFactory::create(GameObjectType type, int x, int
 	el->setPosition(x - 10, 0, z - 10);
 	return el;
 }
+shared_ptr<Monster> GameObjectFactory::create(GameObjectType type, int x, int y, int z, bool monster){
+	shared_ptr<GraphicObject> ob = make_shared<GraphicObject>();
+	ob->setMesh(meshes.at(int(type)));
+	ob->setMaterial(materials.at(int(type)));
+	shared_ptr<Monster> el = make_shared<Monster>();
+	el->setGraphicObject(ob);
+	el->setPosition(x - 10, 0, z - 10);
+	return el;
+}

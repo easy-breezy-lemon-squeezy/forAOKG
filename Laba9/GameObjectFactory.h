@@ -36,6 +36,7 @@ public:
 	bool init();
 	// создание нового объекта заданного типа
 	shared_ptr<GameObject> create(GameObjectType type, int x, int y, int z);
+	shared_ptr<Monster> create(GameObjectType type, int x, int y, int z, bool monster);
 private:
 	// меши для каждого типа объекта
 	vector<shared_ptr<Mesh>> meshes;

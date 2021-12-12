@@ -21,9 +21,8 @@ Light light;
 // задание всех параметров одного материала
 PhongMaterial material1, material2, material3, material4;
 shared_ptr<GameObject> mapObjects[SIZE][SIZE];
-
-
 shared_ptr<GameObject> player;
+shared_ptr <Monster> enemy[3];
 GraphicObject planeGraphicObject;
 
 vector<shared_ptr<PhongMaterial>> materials;
@@ -71,6 +70,15 @@ void initData()
 
 	// инициализация главного героя
 	player = gameObjectFactory.create(GameObjectType::PLAYER, 19, 0, 1);
+	//монстры
+	enemy[0] = gameObjectFactory.create(GameObjectType::MONSTER, 19, 0, 19, 1);
+	enemy[1] = gameObjectFactory.create(GameObjectType::MONSTER, 1, 0, 19, 1);
+	enemy[2] = gameObjectFactory.create(GameObjectType::MONSTER, 1, 0, 1, 1);
+
+	enemy[0].get()->setLastStand(19, 19);
+	enemy[1].get()->setLastStand(1, 19);
+	enemy[2].get()->setLastStand(1, 1);
+
 	// инициализация плоскости
 	planeGraphicObject.setPosition(0, -0.5, 0);
 	shared_ptr<Mesh> planeMesh = make_shared<Mesh>();
