@@ -36,7 +36,7 @@ void GraphicObject::draw(void)
 	glColor3f(color[0], color[1], color[2]);
 	glPopMatrix();
 }
-void GraphicObject::setMaterial(shared_ptr<Material> material1)
+void GraphicObject::setMaterial(shared_ptr<PhongMaterial> material1)
 {
 	material = material1;
 }

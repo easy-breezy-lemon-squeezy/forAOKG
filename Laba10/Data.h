@@ -44,6 +44,7 @@ void initData()
 	// инициализация фабрики (в дальнейшем на основе json-файла)
 	gameObjectFactory.init();
 
+	planeTexture.load("data\\textures\\plane.jpg");
 	showPlayer = true;
 	// инициализация объектов сцены
 	for (int i = 0; i < SIZE; i++) {
@@ -84,16 +85,9 @@ void initData()
 	shared_ptr<Mesh> planeMesh = make_shared<Mesh>();
 	planeMesh->load("data\\meshes\\HighPolyPlane.obj");
 	planeGraphicObject.setMesh(planeMesh);
-
-	// загрузка текстуры для плоскости
-	shared_ptr<Texture> planeTexture = make_shared<Texture>();
-	planeTexture->load("data\\textures\\plane.jpg");
-
-	shared_ptr<PhongMaterialWithTexture> planeMaterial = make_shared<PhongMaterialWithTexture>();
+	shared_ptr<PhongMaterial> planeMaterial = make_shared<PhongMaterial>();
 	planeMaterial->load("data\\materials\\PlaneMaterial.txt");
-	planeMaterial->setTexture(planeTexture);
 	planeGraphicObject.setMaterial(planeMaterial);
-	Texture::disableAll();
 }
 
 void initGlew() {
