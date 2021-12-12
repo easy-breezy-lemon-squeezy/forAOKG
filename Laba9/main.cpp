@@ -1,5 +1,7 @@
 ﻿#include "Data.h"
-
+#include <IL/il.h>
+#include <IL/ilu.h>
+#include <IL/ilut.h>
 using namespace std;
 
 // функция, вызываемая при изменении размеров окна
@@ -12,6 +14,23 @@ void Reshape(int w, int h)
 	glLoadIdentity();
 	gluPerspective(25.0, (float)w / h, 0.2, 70.0);
 };
+
+
+void drawPlane()
+{
+	// выбираем активный текстурный блок
+	glActiveTexture(GL_TEXTURE0);
+	// разрешаем текстурирование в выбранном текстурном блоке
+	glEnable(GL_TEXTURE_2D);
+	// привязываем текстуру к ранее выбранному текстурному блоку
+	planeTexture.apply();
+	// указываем режим наложения текстуры (GL_MODULATE)
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	// выводим плоскость
+	planeGraphicObject.draw();
+	// отключаем текстурирование (чтобы все остальные объекты выводились без текстур)
+	Texture::disableAll();
+}
 
 // функция вызывается при перерисовке окна
 // в том числе и принудительно, по командам glutPostRedisplay
@@ -35,7 +54,7 @@ void Display(void)
 	light.setAmbient(0.7, 0.7, 0.7, 1.0);
 	light.setSpecular(0.7, 0.7, 0.7, 1.0);
 	light.apply();
-
+	
 	// выводим объекты
 	for (int i = 0; i < SIZE; ++i) {
 		for (int j = 0; j < SIZE; ++j) {
@@ -49,8 +68,7 @@ void Display(void)
 
 	}
 	player->draw();
-	//плоскость
-	planeGraphicObject.draw();
+	drawPlane();
 	// смена переднего и заднего буферов
 	glutSwapBuffers();
 
@@ -78,6 +96,10 @@ int main(int argc, char* argv[]) {
 	// 3. создаем окно
 	glutCreateWindow("Лаба 8");
 	initGlew();
+	// инициализация библиотеки DevIL для загрузки изображений
+	ilInit();
+	iluInit();
+	ilutInit();
 	initData();
 	// устанавливаем функцию, которая будет вызываться для перерисовки окна
 	glutDisplayFunc(Display);

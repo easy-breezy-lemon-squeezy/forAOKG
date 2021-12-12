@@ -9,6 +9,7 @@
 #include "GameObjectFactory.h"
 #include "MazeGenerator.h"
 #include "Simulation.h"
+#include "Texture.h"
 
 LARGE_INTEGER OldSimTik, NewSimTik, frequency;
 
@@ -27,6 +28,7 @@ GraphicObject planeGraphicObject;
 
 vector<shared_ptr<PhongMaterial>> materials;
 vector<shared_ptr<Mesh>> mesh;
+Texture planeTexture;
 
 GraphicObject graph1, graph2, graph3, graph0;
 
@@ -41,6 +43,9 @@ void initData()
 {
 	// инициализация фабрики (в дальнейшем на основе json-файла)
 	gameObjectFactory.init();
+
+	planeTexture.load("data\\textures\\plane.jpg");
+
 	// инициализация объектов сцены
 	for (int i = 0; i < SIZE; i++) {
 		for (int j = 0; j < SIZE; j++) {
