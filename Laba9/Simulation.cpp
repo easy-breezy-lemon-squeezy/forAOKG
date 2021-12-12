@@ -32,6 +32,26 @@ void gameObjectSimulation(float simulationTime) {
 		}
 	}
 	player->simulate(simulationTime);
+	/*if (showPlayer)
+	{
+		player->simulate(simulationTime);
+	}
+
+	for (int i = 0; i < 3; i++)
+	{
+		enemy[i].get()->simulate(simulationTime);
+
+		if (enemy[i].get()->getX() == player.get()->getX() && enemy[i].get()->getY() == player.get()->getY())
+		{
+			showPlayer = false;
+		}
+	}*/
+	
+
+	for (int i = 0; i < 3; i++)
+	{
+		enemy[i]->simulate(simulationTime);
+	}
 }
 
 void movePlayer()
@@ -43,7 +63,6 @@ void movePlayer()
 	bool PlayerDown = GetAsyncKeyState(83);
 	// СКОРОСТЬ ИГРОКА
 	float currentSpeed = 5.0f;
-	
 	if (PlayerLeft && !player->isMoving() && Array.get()->at(int(player->getX()) + 9).at(int(player->getY()) + 10) == '0'){
 		player->move(MoveDirection::LEFT, currentSpeed);
 	}
@@ -108,7 +127,12 @@ void simulation() {
 
 	// перемещение главного героя
 	movePlayer();
-
+	
+	// симуляция монстров
+	for (int i = 0; i < 3; i++)
+	{
+		enemy[i].get()->monsterSimulation();
+	}
 	// устанавливаем признак того, что окно нуждается в перерисовке
 	glutPostRedisplay();
 }

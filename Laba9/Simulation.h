@@ -8,12 +8,14 @@
 extern LARGE_INTEGER OldSimTik, NewSimTik, frequency, newTick, oldTick;
 extern int passabilityMap[21][21];
 extern Camera camera;
-extern std::shared_ptr <GameObject> player;
-extern std::shared_ptr <GameObject> mapObjects[21][21];
-//extern std::shared_ptr <Monster> enemy[3];
+extern shared_ptr <GameObject> player;
+extern shared_ptr <GameObject> mapObjects[21][21];
+extern shared_ptr <Monster> enemy[3];
 extern shared_ptr<vector<vector<char>>> Array;
 extern enum class MoveDirection;
 extern int real;
+//extern bool showPlayer;
+
 float GetSimulationTime();
 
 void cameraSimulation(float simulationTime);

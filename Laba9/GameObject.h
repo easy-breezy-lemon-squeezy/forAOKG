@@ -9,8 +9,9 @@
 #include "freeglut/include/GL/glut.h"
 #include "freeglut/include/GL/freeglut.h"
 #include <time.h>
-using namespace std;
 
+using namespace std;
+extern shared_ptr<vector<vector<char>>> Array;
 // класс-перечисление для указания направления перемещения
 enum class MoveDirection { STOP, LEFT, RIGHT, UP, DOWN };
 
@@ -58,12 +59,12 @@ public:
 	// установить прошлые координаты
 	void setLastStand(int x, int y);
 	// получить прошлые координаты
-	int getX();
-	int getY();
+	int getLastStandX();
+	int getLastStandY();
 	// перемещение монстров
 	void monsterSimulation();
 
 private:
 	// прошлые координаты для монстра
-	int x, y;
+	int lastX, lastY;
 };

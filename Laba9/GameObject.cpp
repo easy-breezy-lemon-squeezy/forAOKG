@@ -129,133 +129,131 @@ Monster::Monster() {}
 
 void Monster::setLastStand(int x, int y)
 {
-	this->x = x;
-	this->y = y;
+	this->lastX = x;
+	this->lastY = y;
 }
 
-int Monster::getX() {
-	return x;
+int Monster::getLastStandX() {
+	return lastX;
 }
 
-int Monster::getY() {
-	return y;
+int Monster::getLastStandY() {
+	return lastY;
 }
 void Monster::monsterSimulation()
 {
 	srand(time(NULL));
 
-	/*if (!this->isMoving())
+	if (!this->isMoving())
 	{
-		if (passabilityMap[int(this->getPositon().x + 1)][int(this->getPositon().y)] > 0 &&
-			passabilityMap[int(this->getPositon().x - 1)][int(this->getPositon().y)] > 0 &&
-			passabilityMap[int(this->getPositon().x)][int(this->getPositon().y + 1)] > 0)
-		{
-			this->move(MoveDirection::UP, 1.0f);
-			this->setLastStand(this->getPositon());
+		
+		if (Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 11) != '0' &&
+			Array.get()->at(int(this->getX()) + 9).at(int(this->getY()) + 10) != '0' &&
+			Array.get()->at(int(this->getX()) + 11).at(int(this->getY()) + 10) != '0') {
+			this->move(MoveDirection::UP, 2.0f);
+			this->setLastStand(this->getX(), this->getY());
+		}
+		else if (Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 9) != '0' &&
+			Array.get()->at(int(this->getX()) + 9).at(int(this->getY()) + 10) != '0' &&
+			Array.get()->at(int(this->getX()) + 11).at(int(this->getY()) + 10) != '0') {
+				this->move(MoveDirection::DOWN, 2.0f);
+				this->setLastStand(this->getX(), this->getY());
+		}
+		else if (Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 9) != '0' &&
+			Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 11) != '0' &&
+			Array.get()->at(int(this->getX()) + 11).at(int(this->getY()) + 10) != '0') {
+				this->move(MoveDirection::LEFT, 2.0f);
+				this->setLastStand(this->getX(), this->getY());
+		}
+		else if (Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 9) != '0' &&
+			Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 11) != '0' &&
+			Array.get()->at(int(this->getX()) + 9).at(int(this->getY()) + 10) != '0') {
+				this->move(MoveDirection::RIGHT, 2.0f);
+				this->setLastStand(this->getX(), this->getY());
 		}
 		else
-			if (passabilityMap[int(this->getPositon().x + 1)][int(this->getPositon().y)] > 0 &&
-				passabilityMap[int(this->getPositon().x - 1)][int(this->getPositon().y)] > 0 &&
-				passabilityMap[int(this->getPositon().x)][int(this->getPositon().y - 1)] > 0)
+		{
+			if (Array.get()->at(int(this->getX()) + 9).at(int(this->getY()) + 10) != '0' &&
+				Array.get()->at(int(this->getX()) + 11).at(int(this->getY()) + 10) != '0')
 			{
-				this->move(MoveDirection::DOWN, 1.0f);
-				this->setLastStand(this->getPositon());
-			}
-			else
-				if (passabilityMap[int(this->getPositon().x + 1)][int(this->getPositon().y)] > 0 &&
-					passabilityMap[int(this->getPositon().x)][int(this->getPositon().y - 1)] > 0 &&
-					passabilityMap[int(this->getPositon().x)][int(this->getPositon().y + 1)] > 0)
+				
+				if (this->getLastStandX() == this->getX() && this->getLastStandY() == this->getY() + 1)
 				{
-					this->move(MoveDirection::LEFT, 1.0f);
-					this->setLastStand(this->getPositon());
+					this->move(MoveDirection::UP, 2.0f);
+					this->setLastStand(this->getX(), this->getY());
 				}
 				else
-					if (passabilityMap[int(this->getPositon().x - 1)][int(this->getPositon().y)] > 0 &&
-						passabilityMap[int(this->getPositon().x)][int(this->getPositon().y - 1)] > 0 &&
-						passabilityMap[int(this->getPositon().x)][int(this->getPositon().y + 1)] > 0)
+				{
+					this->move(MoveDirection::DOWN, 2.0f);
+					this->setLastStand(this->getX(), this->getY());
+				}
+			}
+			else{
+				if (Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 9) != '0' &&
+					Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 11) != '0')
+				{
+					if (this->getLastStandX() == this->getX() + 1 && this->getLastStandY() == this->getY())
 					{
-						this->move(MoveDirection::RIGHT, 1.0f);
-						this->setLastStand(this->getPositon());
+						this->move(MoveDirection::LEFT, 2.0f);
+						this->setLastStand(this->getX(), this->getY());
 					}
 					else
 					{
-						if (passabilityMap[int(this->getPositon().x + 1)][int(this->getPositon().y)] > 0 &&
-							passabilityMap[int(this->getPositon().x - 1)][int(this->getPositon().y)] > 0)
+						this->move(MoveDirection::RIGHT, 2.0f);
+						this->setLastStand(this->getX(), this->getY());
+					}
+				}
+				else
+				{
+					int direction = rand() % 4;
+
+					switch (direction)
+					{
+					case 0:
+						if (Array.get()->at(int(this->getX()) + 11).at(int(this->getY()) + 10) == '0')
 						{
-							if (this->getLastStand().x == this->getPositon().x && this->getLastStand().y == this->getPositon().y + 1)
+							if (!(this->getLastStandX() == this->getX() + 1 && this->getLastStandY() == this->getY()))
 							{
-								this->move(MoveDirection::UP, 1.0f);
-								this->setLastStand(this->getPositon());
-							}
-							else
-							{
-								this->move(MoveDirection::DOWN, 1.0f);
-								this->setLastStand(this->getPositon());
+								this->move(MoveDirection::RIGHT, 2.0f);
+								this->setLastStand(this->getX(), this->getY());
 							}
 						}
-						else
-							if (passabilityMap[int(this->getPositon().x)][int(this->getPositon().y + 1)] > 0 &&
-								passabilityMap[int(this->getPositon().x)][int(this->getPositon().y - 1)] > 0)
+						break;
+					case 1:
+						if (Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 11) == '0')
+						{
+							if (!(this->getLastStandX() == this->getX() && this->getLastStandY() == this->getY() + 1))
 							{
-								if (this->getLastStand().x == this->getPositon().x + 1 && this->getLastStand().y == this->getPositon().y)
-								{
-									this->move(MoveDirection::LEFT, 1.0f);
-									this->setLastStand(this->getPositon());
-								}
-								else
-								{
-									this->move(MoveDirection::RIGHT, 1.0f);
-									this->setLastStand(this->getPositon());
-								}
+								this->move(MoveDirection::DOWN, 2.0f);
+								this->setLastStand(this->getX(), this->getY());
 							}
-							else
+						}
+						break;
+					case 2:
+						if (Array.get()->at(int(this->getX()) + 9).at(int(this->getY()) + 10) == '0')
+						{
+							if (!(this->getLastStandX() == this->getX() - 1 && this->getLastStandY() == this->getY()))
 							{
-								int direction = rand() % 4;
-
-								switch (direction)
-								{
-								case 0:
-									if (passabilityMap[int(this->getPositon().x + 1)][int(this->getPositon().y)] == 0)
-									{
-										if (!(this->getLastStand().x == this->getPositon().x + 1 && this->getLastStand().y == this->getPositon().y))
-										{
-											this->move(MoveDirection::RIGHT, 1.0f);
-											this->setLastStand(this->getPositon());
-										}
-									}
-									break;
-								case 1:
-									if (passabilityMap[int(this->getPositon().x)][int(this->getPositon().y) + 1] == 0)
-									{
-										if (!(this->getLastStand().x == this->getPositon().x && this->getLastStand().y == this->getPositon().y + 1))
-										{
-											this->move(MoveDirection::DOWN, 1.0f);
-											this->setLastStand(this->getPositon());
-										}
-									}
-									break;
-								case 2:
-									if (passabilityMap[int(this->getPositon().x - 1)][int(this->getPositon().y)] == 0)
-									{
-										if (!(this->getLastStand().x == this->getPositon().x - 1 && this->getLastStand().y == this->getPositon().y))
-										{
-											this->move(MoveDirection::LEFT, 1.0f);
-											this->setLastStand(this->getPositon());
-										}
-									}
-									break;
-								case 3:
-									if (passabilityMap[int(this->getPositon().x)][int(this->getPositon().y - 1)] == 0)
-									{
-										if (!(this->getLastStand().x == this->getPositon().x && this->getLastStand().y == this->getPositon().y - 1))
-										{
-											this->setLastStand(this->getPositon());
-											this->move(MoveDirection::UP, 1.0f);
-										}
-									}
-									break;
-								}
+								this->move(MoveDirection::LEFT, 2.0f);
+								this->setLastStand(this->getX(), this->getY());
 							}
+						}
+						break;
+					case 3:
+						if (Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 9) == '0')
+						{
+							if (!(this->getLastStandX() == this->getX() && this->getLastStandY() == this->getY() - 1))
+							{
+								this->move(MoveDirection::UP, 2.0f);
+								this->setLastStand(this->getX(), this->getY());
+							}
+						}
+						break;
 					}
-	}*/
+				}
+			}
+		}
+
+	}
+		
 }
