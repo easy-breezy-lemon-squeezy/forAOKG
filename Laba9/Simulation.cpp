@@ -31,8 +31,8 @@ void gameObjectSimulation(float simulationTime) {
 			}
 		}
 	}
-	player->simulate(simulationTime);
-	/*if (showPlayer)
+	
+	if (showPlayer)
 	{
 		player->simulate(simulationTime);
 	}
@@ -41,11 +41,14 @@ void gameObjectSimulation(float simulationTime) {
 	{
 		enemy[i].get()->simulate(simulationTime);
 
-		if (enemy[i].get()->getX() == player.get()->getX() && enemy[i].get()->getY() == player.get()->getY())
+		if (enemy[i].get()->getX() == player.get()->getX() - 1 && enemy[i].get()->getY() == player.get()->getY()  || 
+			enemy[i].get()->getX() == player.get()->getX() && enemy[i].get()->getY() == player.get()->getY() + 1  ||
+			enemy[i].get()->getX() == player.get()->getX() && enemy[i].get()->getY() == player.get()->getY() - 1  ||
+			enemy[i].get()->getX() == player.get()->getX() + 1 && enemy[i].get()->getY() == player.get()->getY())
 		{
 			showPlayer = false;
 		}
-	}*/
+	}
 	
 
 	for (int i = 0; i < 3; i++)

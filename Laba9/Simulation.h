@@ -14,7 +14,7 @@ extern shared_ptr <Monster> enemy[3];
 extern shared_ptr<vector<vector<char>>> Array;
 extern enum class MoveDirection;
 extern int real;
-//extern bool showPlayer;
+extern bool showPlayer;
 
 float GetSimulationTime();
 

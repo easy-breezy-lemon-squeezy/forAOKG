@@ -22,6 +22,7 @@ Light light;
 PhongMaterial material1, material2, material3, material4;
 shared_ptr<GameObject> mapObjects[SIZE][SIZE];
 shared_ptr<GameObject> player;
+bool showPlayer;
 shared_ptr <Monster> enemy[3];
 GraphicObject planeGraphicObject;
 
@@ -44,7 +45,7 @@ void initData()
 	gameObjectFactory.init();
 
 	planeTexture.load("data\\textures\\plane.jpg");
-
+	showPlayer = true;
 	// инициализация объектов сцены
 	for (int i = 0; i < SIZE; i++) {
 		for (int j = 0; j < SIZE; j++) {
