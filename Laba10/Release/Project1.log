@@ -1,0 +1,16 @@
+﻿  Camera.cpp
+C:\Users\Ghost\Desktop\AOKG\forAOKG\Laba8\Camera.h(6,10): fatal error C1083: Не удается открыть файл включение: GL/freeglut.h: No such file or directory,
+  GameObject.cpp
+C:\Users\Ghost\Desktop\AOKG\forAOKG\Laba8\GraphObject.h(6,10): fatal error C1083: Не удается открыть файл включение: GL/freeglut.h: No such file or directory,
+  GameObjectFactory.cpp
+C:\Users\Ghost\Desktop\AOKG\forAOKG\Laba8\GraphObject.h(6,10): fatal error C1083: Не удается открыть файл включение: GL/freeglut.h: No such file or directory,
+  Light.cpp
+C:\Users\Ghost\Desktop\AOKG\forAOKG\Laba8\Light.h(6,10): fatal error C1083: Не удается открыть файл включение: GL/freeglut.h: No such file or directory,
+  main.cpp
+C:\Users\Ghost\Desktop\AOKG\forAOKG\Laba8\GraphObject.h(6,10): fatal error C1083: Не удается открыть файл включение: GL/freeglut.h: No such file or directory,
+  GraphObject.cpp
+C:\Users\Ghost\Desktop\AOKG\forAOKG\Laba8\GraphObject.h(6,10): fatal error C1083: Не удается открыть файл включение: GL/freeglut.h: No such file or directory,
+  Material.cpp
+C:\Users\Ghost\Desktop\AOKG\forAOKG\Laba8\Material.h(6,10): fatal error C1083: Не удается открыть файл включение: GL/freeglut.h: No such file or directory,
+  Mesh.cpp
+C:\Users\Ghost\Desktop\AOKG\forAOKG\Laba8\Mesh.h(8,10): fatal error C1083: Не удается открыть файл включение: GL/freeglut.h: No such file or directory,
