@@ -8,7 +8,6 @@
 #include <sstream>
 
 
-// Конструктор
 PhongMaterial::PhongMaterial(void)
 {
 }
@@ -120,7 +119,6 @@ void PhongMaterial::load(const char* path)
 
 
 
-// Конструктор
 PhongMaterialWithTexture::PhongMaterialWithTexture(void)
 {
 }
@@ -165,6 +163,7 @@ void PhongMaterialWithTexture::apply()
 	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specular);
 	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, shininess);
+
 	if (this->texture != nullptr)
 	{
 		glActiveTexture(GL_TEXTURE0);

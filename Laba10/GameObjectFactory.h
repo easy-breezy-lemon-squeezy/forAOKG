@@ -37,7 +37,8 @@ public:
 	shared_ptr<Monster> create(GameObjectType type, int x, int y, int z, bool monster);
 
 private:
-	vector <std::shared_ptr <Mesh>> meshes;
-	vector <std::shared_ptr <Material>> materials;
-	vector <std::shared_ptr <Texture>> textures;
+	vector<shared_ptr<Mesh>> meshes;
+	vector<shared_ptr<PhongMaterial>> materials;
+	vector<shared_ptr<PhongMaterialWithTexture>> materialsWithTexture;
+	vector<shared_ptr <Texture>> textures;
 };

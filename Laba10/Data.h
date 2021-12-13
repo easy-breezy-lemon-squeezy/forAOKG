@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include "glew-2.2.0/include/GL/glew.h"
 #include "GraphObject.h"
 #include "Camera.h"
@@ -18,7 +18,7 @@ Camera camera;
 Light light;
 #define SIZE 21
 
-// задание всех параметров одного материала
+// Р·Р°РґР°РЅРёРµ РІСЃРµС… РїР°СЂР°РјРµС‚СЂРѕРІ РѕРґРЅРѕРіРѕ РјР°С‚РµСЂРёР°Р»Р°
 PhongMaterial material1, material2, material3, material4;
 shared_ptr<GameObject> mapObjects[SIZE][SIZE];
 shared_ptr<GameObject> player;
@@ -37,17 +37,16 @@ GLfloat globalAmbientColor[] = { 0.8, 0.8, 0.8, 1.0 };
 
 shared_ptr<vector<vector<char>>> Array = MazeGenerator::generate(SIZE / 2, SIZE / 2);
 
-// фабрика для создания игровых объектов
+// С„Р°Р±СЂРёРєР° РґР»СЏ СЃРѕР·РґР°РЅРёСЏ РёРіСЂРѕРІС‹С… РѕР±СЉРµРєС‚РѕРІ
 GameObjectFactory gameObjectFactory;
-// функция для инициализации всех общих данных (камера, объекты и т.д.)
+// С„СѓРЅРєС†РёСЏ РґР»СЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё РІСЃРµС… РѕР±С‰РёС… РґР°РЅРЅС‹С… (РєР°РјРµСЂР°, РѕР±СЉРµРєС‚С‹ Рё С‚.Рґ.)
 void initData()
 {
-	// инициализация фабрики (в дальнейшем на основе json-файла)
+	// РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ С„Р°Р±СЂРёРєРё (РІ РґР°Р»СЊРЅРµР№С€РµРј РЅР° РѕСЃРЅРѕРІРµ json-С„Р°Р№Р»Р°)
 	gameObjectFactory.init("data//GameObjectsDescription.json");
 
-	planeTexture.load("data\\textures\\plane.jpg");
 	showPlayer = true;
-	// инициализация объектов сцены
+	// РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РѕР±СЉРµРєС‚РѕРІ СЃС†РµРЅС‹
 	for (int i = 0; i < SIZE; i++) {
 		for (int j = 0; j < SIZE; j++) {
 
@@ -70,9 +69,9 @@ void initData()
 
 	}
 
-	// инициализация главного героя
+	// РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РіР»Р°РІРЅРѕРіРѕ РіРµСЂРѕСЏ
 	player = gameObjectFactory.create(GameObjectType::PLAYER, 19, 0, 1);
-	//монстры
+	//РјРѕРЅСЃС‚СЂС‹
 	enemy[0] = gameObjectFactory.create(GameObjectType::MONSTER, 19, 0, 19, 1);
 	enemy[1] = gameObjectFactory.create(GameObjectType::MONSTER, 1, 0, 19, 1);
 	enemy[2] = gameObjectFactory.create(GameObjectType::MONSTER, 1, 0, 1, 1);
@@ -81,14 +80,21 @@ void initData()
 	enemy[1].get()->setLastStand(1, 19);
 	enemy[2].get()->setLastStand(1, 1);
 
-	// инициализация плоскости
+	// РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РїР»РѕСЃРєРѕСЃС‚Рё
+
 	planeGraphicObject.setPosition(0, -0.5, 0);
 	shared_ptr<Mesh> planeMesh = make_shared<Mesh>();
 	planeMesh->load("data\\meshes\\HighPolyPlane.obj");
 	planeGraphicObject.setMesh(planeMesh);
-	shared_ptr<PhongMaterial> planeMaterial = make_shared<PhongMaterial>();
+
+	shared_ptr<Texture> planeTexture = make_shared<Texture>();
+	planeTexture->load("data\\textures\\plane.jpg");
+
+	shared_ptr<PhongMaterialWithTexture> planeMaterial = make_shared<PhongMaterialWithTexture>();
 	planeMaterial->load("data\\materials\\PlaneMaterial.txt");
+	planeMaterial->setTexture(planeTexture);
 	planeGraphicObject.setMaterial(planeMaterial);
+	Texture::disableAll();
 }
 
 void initGlew() {

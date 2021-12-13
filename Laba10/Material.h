@@ -1,4 +1,5 @@
-﻿#pragma once
+﻿
+#pragma once
 #include <windows.h>
 #include "glew-2.2.0/include/GL/glew.h"
 #include <GL/gl.h>

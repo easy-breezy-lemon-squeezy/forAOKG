@@ -40,6 +40,6 @@ void GraphicObject::setMaterial(shared_ptr<Material> material)
 {
 	this->material = material;
 }
-void GraphicObject::setMesh(shared_ptr<Mesh> mesh) {
-	this->mesh = mesh;
+void GraphicObject::setMesh(shared_ptr<Mesh> mesh1) {
+	this->mesh = mesh1;
 }
