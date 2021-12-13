@@ -5,8 +5,6 @@ using namespace rapidjson;
 
 bool GameObjectFactory::init(std::string filename)
 {
-
-	
 		ifstream f(filename);
 		if (!f.is_open()) {
 			cout << "Error((" << filename << endl;
@@ -18,7 +16,7 @@ bool GameObjectFactory::init(std::string filename)
 		Document document;
 		document.Parse(jsonString.c_str());
 		if (document.GetParseError() != 0) {
-			cout << "íåâåðíûé ôîðìàò ôàéëà\n";
+			cout << "Error((\n";
 			return false;
 		}
 		
@@ -94,6 +92,7 @@ bool GameObjectFactory::init(std::string filename)
 		meshes.emplace_back(new Mesh);
 		meshes.at(3)->load(document["LightObject"]["mesh"].GetString());
 		mas[4];
+		
 		materialsWithTexture.emplace_back(new PhongMaterialWithTexture);
 		for (int i = 0; i < document["LightObject"]["material"]["diffuse"].Size(); i++) {
 			mas[i] = document["LightObject"]["material"]["diffuse"][i].GetDouble();
@@ -112,6 +111,9 @@ bool GameObjectFactory::init(std::string filename)
 		}
 		materialsWithTexture.at(0)->setEmission(mas[0], mas[1], mas[2], mas[3]);
 		materialsWithTexture.at(0)->setShininess(document["LightObject"]["material"]["shininess"].GetDouble());
+		textures.emplace_back(new Texture);
+		textures.at(0)->load(document["LightObject"]["material"]["texture"].GetString());
+		
 
 		meshes.emplace_back(new Mesh);
 
@@ -135,6 +137,8 @@ bool GameObjectFactory::init(std::string filename)
 		}
 		materialsWithTexture.at(1)->setEmission(mas[0], mas[1], mas[2], mas[3]);
 		materialsWithTexture.at(1)->setShininess(document["HeavyObject"]["material"]["shininess"].GetDouble());
+		textures.emplace_back(new Texture);
+		textures.at(1)->load(document["HeavyObject"]["material"]["texture"].GetString());
 
 	
 		meshes.emplace_back(new Mesh);
@@ -158,6 +162,8 @@ bool GameObjectFactory::init(std::string filename)
 		}
 		materialsWithTexture.at(2)->setEmission(mas[0], mas[1], mas[2], mas[3]);
 		materialsWithTexture.at(2)->setShininess(document["BorderObject"]["material"]["shininess"].GetDouble());
+		textures.emplace_back(new Texture);
+		textures.at(2)->load(document["BorderObject"]["material"]["texture"].GetString());
 
 	}
 
@@ -165,6 +171,7 @@ bool GameObjectFactory::init(std::string filename)
 
 shared_ptr<GameObject> GameObjectFactory::create(GameObjectType type, int x, int y, int z) {
 	shared_ptr<GraphicObject> ob = make_shared<GraphicObject>();
+	
 	switch (type)
 	{
 	case GameObjectType::PLAYER:
@@ -181,14 +188,18 @@ shared_ptr<GameObject> GameObjectFactory::create(GameObjectType type, int x, int
 		break;
 	case GameObjectType::LIGHT_OBJECT:
 		ob->setMesh(meshes.at(3));
+		materialsWithTexture.at(0)->setTexture(textures.at(0));
 		ob->setMaterial(materialsWithTexture.at(0));
+		Texture::disableAll();
 		break;
 	case GameObjectType::HEAVY_OBJECT:
 		ob->setMesh(meshes.at(4));
+		materialsWithTexture.at(1)->setTexture(textures.at(1));
 		ob->setMaterial(materialsWithTexture.at(1));
 		break;
 	case GameObjectType::BORDER_OBJECT:
 		ob->setMesh(meshes.at(5));
+		materialsWithTexture.at(2)->setTexture(textures.at(2));
 		ob->setMaterial(materialsWithTexture.at(2));
 		break;
 	default:
@@ -218,7 +229,9 @@ shared_ptr<Monster> GameObjectFactory::create(GameObjectType type, int x, int y,
 		break;
 	case GameObjectType::LIGHT_OBJECT:
 		ob->setMesh(meshes.at(3));
+		materialsWithTexture.at(0)->setTexture(textures.at(0));
 		ob->setMaterial(materialsWithTexture.at(0));
+		Texture::disableAll();
 		break;
 	case GameObjectType::HEAVY_OBJECT:
 		ob->setMesh(meshes.at(4));
