@@ -175,6 +175,7 @@ void PhongMaterialWithTexture::apply()
 	{
 		Texture::disableAll;
 	}
+	Texture::disableAll;
 }
 
 void PhongMaterialWithTexture::load(const char* path)

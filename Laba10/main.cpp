@@ -29,7 +29,7 @@ void drawPlane()
 	// выводим плоскость
 	planeGraphicObject.draw();
 	// отключаем текстурирование (чтобы все остальные объекты выводились без текстур)
-	Texture::disableAll();
+	//Texture::disableAll();
 }
 
 // функция вызывается при перерисовке окна
@@ -62,6 +62,8 @@ void Display(void)
 			if ((Array.get()->at(i).at(j)) != '0') {
 				//объекты
 				mapObjects[i][j]->draw();
+				Texture::disableAll();
+
 			}
 
 		}
@@ -70,6 +72,7 @@ void Display(void)
 	enemy[0].get()->draw();
 	enemy[1].get()->draw();
 	enemy[2].get()->draw();
+
 	if (showPlayer) {
 		player->draw();
 	}

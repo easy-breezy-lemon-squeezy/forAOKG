@@ -235,10 +235,12 @@ shared_ptr<Monster> GameObjectFactory::create(GameObjectType type, int x, int y,
 		break;
 	case GameObjectType::HEAVY_OBJECT:
 		ob->setMesh(meshes.at(4));
+		materialsWithTexture.at(1)->setTexture(textures.at(1));
 		ob->setMaterial(materialsWithTexture.at(1));
 		break;
 	case GameObjectType::BORDER_OBJECT:
 		ob->setMesh(meshes.at(5));
+		materialsWithTexture.at(2)->setTexture(textures.at(2));
 		ob->setMaterial(materialsWithTexture.at(2));
 		break;
 	default:
