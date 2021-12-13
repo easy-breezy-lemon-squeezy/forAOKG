@@ -43,7 +43,7 @@ GameObjectFactory gameObjectFactory;
 void initData()
 {
 	// инициализация фабрики (в дальнейшем на основе json-файла)
-	gameObjectFactory.init();
+	gameObjectFactory.init("data//GameObjectsDescription.json");
 
 	planeTexture.load("data\\textures\\plane.jpg");
 	showPlayer = true;

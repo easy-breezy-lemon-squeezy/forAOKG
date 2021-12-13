@@ -1,22 +1,23 @@
 #include "GameObjectFactory.h"
-#include <typeinfo>
-// указываем используемые пространства имен
-using namespace rapidjson;
 
-bool GameObjectFactory::init()
+bool GameObjectFactory::init(std::string filename)
 {
-	string filename = "data//GameObjectsDescription.json";
-	// открываем файл с заданным именем и проверяем, удалось ли его открыть
-	ifstream fin;
+	setlocale(LC_ALL, "russian");
+
+	std::vector <std::string> firstLevel{ "LightObject", "HeavyObject", "BorderObject", "Player", "Bomb", "Monster" };
+	std::vector <std::string> secondLevel{ "mesh", "material" };
+	std::vector <std::string> thirdLevel{ "diffuse", "ambient", "specular", "emission", "shininess" };
+
+	std::ifstream fin;
 	fin.open(filename);
 
 	if (!fin.is_open())
 	{
-		cout << "Не удается найти файл " << filename << std::endl;
+		std::cout << "Не удается найти файл " << filename << std::endl;
 		return false;
 	}
 
-	string jsonString;
+	std::string jsonString;
 	getline(fin, jsonString, static_cast<char>(0));
 	fin.close();
 
@@ -25,186 +26,143 @@ bool GameObjectFactory::init()
 
 	if (document.GetParseError() != 0)
 	{
-		cout << "Неверный формат файла" << std::endl;
+		std::cout << "Неверный формат файла" << std::endl;
 		return false;
 	}
+	std::cout << document["LightObject"]["material"]["type"].GetString() << std::endl;
+	std::vector <Mesh> mesh(6);
+	std::vector <Texture> texture(3);
 
-	
-	meshes.emplace_back(new Mesh);
-	meshes.at(0)->load(document["LightObject"]["mesh"].GetString());
-	
-	if (document["LightObject"]["material"]["type"].GetString() == "PhongMaterialWithTexture") {
-		materialsWithTexture.emplace_back(new PhongMaterialWithTexture);
-		textures.at(0)->load(document["LightObject"]["material"]["texture"].GetString());
-		float mas[4];
-		for (int i = 0; i < document["LightObject"]["material"]["diffuse"].Size(); i++) {
-			mas[i] = document["LightObject"]["material"]["diffuse"][i].GetDouble();
-		}
-		materialsWithTexture.at(0)->setDiffuse(mas[0], mas[1], mas[2], mas[3]);
-		for (int i = 0; i < document["LightObject"]["material"]["ambient"].Size(); i++) {
-			mas[i] = document["LightObject"]["material"]["ambient"][i].GetDouble();
-		}
-		materialsWithTexture.at(0)->setAmbient(mas[0], mas[1], mas[2], mas[3]);
-		for (int i = 0; i < document["LightObject"]["material"]["specular"].Size(); i++) {
-			mas[i] = document["LightObject"]["material"]["specular"][i].GetDouble();
-		}
-		materialsWithTexture.at(0)->setSpecular(mas[0], mas[1], mas[2], mas[3]);
-		for (int i = 0; i < document["LightObject"]["material"]["emission"].Size(); i++) {
-			mas[i] = document["LightObject"]["material"]["emission"][i].GetDouble();
-		}
-		materialsWithTexture.at(0)->setEmission(mas[0], mas[1], mas[2], mas[3]);
-		materialsWithTexture.at(0)->setShininess(document["LightObject"]["material"]["shininess"].GetDouble());
-	}
-	
+	mesh[0].load(document["LightObject"]["mesh"].GetString());
+	mesh[1].load(document["BorderObject"]["mesh"].GetString());
+	mesh[2].load(document["Player"]["mesh"].GetString());
+	mesh[3].load(document["HeavyObject"]["mesh"].GetString());
+	mesh[4].load(document["Bomb"]["mesh"].GetString());
+	mesh[5].load(document["Monster"]["mesh"].GetString());
 
-	meshes.emplace_back(new Mesh);
-	meshes.at(1)->load(document["HeavyObject"]["mesh"].GetString());
-	if (document["HeavyObject"]["material"]["type"].GetString() == "PhongMaterialWithTexture") {
-		materialsWithTexture.emplace_back(new PhongMaterialWithTexture);
-		textures.at(1)->load(document["HeavyObject"]["material"]["texture"].GetString());
-		float mas[4];
-		for (int i = 0; i < document["HeavyObject"]["material"]["diffuse"].Size(); i++) {
-			mas[i] = document["HeavyObject"]["material"]["diffuse"][i].GetDouble();
-		}
-		materialsWithTexture.at(1)->setDiffuse(mas[0], mas[1], mas[2], mas[3]);
-		for (int i = 0; i < document["HeavyObject"]["material"]["ambient"].Size(); i++) {
-			mas[i] = document["HeavyObject"]["material"]["ambient"][i].GetDouble();
-		}
-		materialsWithTexture.at(1)->setAmbient(mas[0], mas[1], mas[2], mas[3]);
-		for (int i = 0; i < document["HeavyObject"]["material"]["specular"].Size(); i++) {
-			mas[i] = document["HeavyObject"]["material"]["specular"][i].GetDouble();
-		}
-		materialsWithTexture.at(1)->setSpecular(mas[0], mas[1], mas[2], mas[3]);
-		for (int i = 0; i < document["HeavyObject"]["material"]["emission"].Size(); i++) {
-			mas[i] = document["HeavyObject"]["material"]["emission"][i].GetDouble();
-		}
-		materialsWithTexture.at(1)->setEmission(mas[0], mas[1], mas[2], mas[3]);
-		materialsWithTexture.at(1)->setShininess(document["Monster"]["material"]["shininess"].GetDouble());
-	}
-	
+	std::vector <Texture> tex(3);
+	std::vector <PhongMaterial> material(3);
+	std::vector <PhongMaterialWithTexture> materialTexture(3);
 
-	meshes.emplace_back(new Mesh);
-	meshes.at(2)->load(document["BorderObject"]["mesh"].GetString());
+	int textureCounter_1 = 0;
+	int textureCounter_2 = 0;
 
-	if (document["BorderObject"]["material"]["type"].GetString() == "PhongMaterialWithTexture") {
-		materialsWithTexture.emplace_back(new PhongMaterialWithTexture);
-		textures.at(2)->load(document["BorderObject"]["material"]["texture"].GetString());
-		float mas[4];
-		for (int i = 0; i < document["BorderObject"]["material"]["diffuse"].Size(); i++) {
-			mas[i] = document["BorderObject"]["material"]["diffuse"][i].GetDouble();
-		}
-		materialsWithTexture.at(2)->setDiffuse(mas[0], mas[1], mas[2], mas[3]);
-		for (int i = 0; i < document["BorderObject"]["material"]["ambient"].Size(); i++) {
-			mas[i] = document["BorderObject"]["material"]["ambient"][i].GetDouble();
-		}
-		materialsWithTexture.at(2)->setAmbient(mas[0], mas[1], mas[2], mas[3]);
-		for (int i = 0; i < document["BorderObject"]["material"]["specular"].Size(); i++) {
-			mas[i] = document["BorderObject"]["material"]["specular"][i].GetDouble();
-		}
-		materialsWithTexture.at(2)->setSpecular(mas[0], mas[1], mas[2], mas[3]);
-		for (int i = 0; i < document["BorderObject"]["material"]["emission"].Size(); i++) {
-			mas[i] = document["BorderObject"]["material"]["emission"][i].GetDouble();
-		}
-		materialsWithTexture.at(2)->setEmission(mas[0], mas[1], mas[2], mas[3]);
-		materialsWithTexture.at(2)->setShininess(document["BorderObject"]["material"]["shininess"].GetDouble());
-	}
-	
-	
+	for (int i = 0; i < 6; i++)
+	{
+		float mas1[4];
+		float mas2[4];
+		float mas3[4];
+		float mas4[4];
+		
+		GLfloat shininess;
 
-	meshes.emplace_back(new Mesh);
-	meshes.at(3)->load(document["Player"]["mesh"].GetString());
-	
-	if (document["Player"]["material"]["type"].GetString() == "PhongMaterial") {
-		materials.emplace_back(new PhongMaterial);
-		float mas[4];
-		for (int i = 0; i < document["Player"]["material"]["diffuse"].Size(); i++) {
-			mas[i] = document["Player"]["material"]["diffuse"][i].GetDouble();
+		if (document[firstLevel[i].c_str()][secondLevel[1].c_str()]["type"].GetString()[13] != 'W')
+		{
+			for (int j = 0; j < 4; j++)
+			{
+				mas1[j] = document[firstLevel[i].c_str()][secondLevel[1].c_str()][thirdLevel[0].c_str()][j].GetDouble();
+			}
+
+			for (int j = 0; j < 4; j++)
+			{
+				mas1[j] = document[firstLevel[i].c_str()][secondLevel[1].c_str()][thirdLevel[1].c_str()][j].GetDouble();
+			}
+
+			for (int j = 0; j < 4; j++)
+			{
+				mas1[j] = document[firstLevel[i].c_str()][secondLevel[1].c_str()][thirdLevel[2].c_str()][j].GetDouble();
+			}
+
+			for (int j = 0; j < 4; j++)
+			{
+				mas1[j] = document[firstLevel[i].c_str()][secondLevel[1].c_str()][thirdLevel[3].c_str()][j].GetDouble();
+			}
+
+			shininess = document[firstLevel[i].c_str()][secondLevel[1].c_str()][thirdLevel[4].c_str()].GetDouble();
+
+			material[textureCounter_1].setDiffuse(mas1[0], mas1[1], mas1[2], mas1[3]);
+			material[textureCounter_1].setAmbient(mas2[0], mas2[1], mas2[2], mas2[3]);
+			material[textureCounter_1].setSpecular(mas3[0], mas3[1], mas3[2], mas3[3]);
+			material[textureCounter_1].setEmission(mas4[0], mas4[1], mas4[2], mas4[3]);
+			material[textureCounter_1].setShininess(shininess);
+
+			textureCounter_1++;
 		}
-		materials.at(0)->setDiffuse(mas[0], mas[1], mas[2], mas[3]);
-		for (int i = 0; i < document["Player"]["material"]["ambient"].Size(); i++) {
-			mas[i] = document["Player"]["material"]["ambient"][i].GetDouble();
+		if (document[firstLevel[i].c_str()][secondLevel[1].c_str()]["type"].GetString()[13] == 'W')
+		{
+			for (int j = 0; j < 4; j++)
+			{
+				mas1[j] = document[firstLevel[i].c_str()][secondLevel[1].c_str()][thirdLevel[0].c_str()][j].GetDouble();
+			}
+
+			for (int j = 0; j < 4; j++)
+			{
+				mas1[j] = document[firstLevel[i].c_str()][secondLevel[1].c_str()][thirdLevel[1].c_str()][j].GetDouble();
+			}
+
+			for (int j = 0; j < 4; j++)
+			{
+				mas1[j] = document[firstLevel[i].c_str()][secondLevel[1].c_str()][thirdLevel[2].c_str()][j].GetDouble();
+			}
+
+			for (int j = 0; j < 4; j++)
+			{
+				mas1[j] = document[firstLevel[i].c_str()][secondLevel[1].c_str()][thirdLevel[3].c_str()][j].GetDouble();
+			}
+
+			shininess = document[firstLevel[i].c_str()][secondLevel[1].c_str()][thirdLevel[4].c_str()].GetDouble();
+
+			materialTexture[textureCounter_2].setDiffuse(mas1[0], mas1[1], mas1[2], mas1[3]);
+			materialTexture[textureCounter_2].setAmbient(mas2[0], mas2[1], mas2[2], mas2[3]);
+			materialTexture[textureCounter_2].setSpecular(mas3[0], mas3[1], mas3[2], mas3[3]);
+			materialTexture[textureCounter_2].setEmission(mas4[0], mas4[1], mas4[2], mas4[3]);
+			materialTexture[textureCounter_2].setShininess(shininess);
+
+			std::shared_ptr <Texture> texture = std::make_shared<Texture>(tex[textureCounter_2]);
+			texture.get()->load(document[firstLevel[i].c_str()][secondLevel[1].c_str()]["texture"].GetString());
+			this->textures.push_back(texture);
+			textureCounter_2++;
 		}
-		materials.at(0)->setAmbient(mas[0], mas[1], mas[2], mas[3]);
-		for (int i = 0; i < document["Player"]["material"]["specular"].Size(); i++) {
-			mas[i] = document["Player"]["material"]["specular"][i].GetDouble();
-		}
-		materials.at(0)->setSpecular(mas[0], mas[1], mas[2], mas[3]);
-		for (int i = 0; i < document["Player"]["material"]["emission"].Size(); i++) {
-			mas[i] = document["Player"]["material"]["emission"][i].GetDouble();
-		}
-		materials.at(0)->setEmission(mas[0], mas[1], mas[2], mas[3]);
-		materials.at(0)->setShininess(document["Player"]["material"]["shininess"].GetDouble());
 	}
 
-	
 
-	meshes.emplace_back(new Mesh);
-	meshes.at(4)->load(document["Bomb"]["mesh"].GetString());
-	
-	if (document["Bomb"]["material"]["type"].GetString() == "PhongMaterial") {
-		materials.emplace_back(new PhongMaterial);
-		float mas[4];
-		for (int i = 0; i < document["Bomb"]["material"]["diffuse"].Size(); i++) {
-			mas[i] = document["Bomb"]["material"]["diffuse"][i].GetDouble();
-		}
+	this->meshes.push_back(std::make_shared<Mesh>(mesh[0]));
+	this->meshes.push_back(std::make_shared<Mesh>(mesh[1]));
+	this->meshes.push_back(std::make_shared<Mesh>(mesh[2]));
 
-		materials.at(1)->setDiffuse(mas[0], mas[1], mas[2], mas[3]);
-		for (int i = 0; i < document["Bomb"]["material"]["ambient"].Size(); i++) {
-			mas[i] = document["Bomb"]["material"]["ambient"][i].GetDouble();
-		}
-		materials.at(1)->setAmbient(mas[0], mas[1], mas[2], mas[3]);
-		for (int i = 0; i < document["Bomb"]["material"]["specular"].Size(); i++) {
-			mas[i] = document["Bomb"]["material"]["specular"][i].GetDouble();
-		}
-		materials.at(1)->setSpecular(mas[0], mas[1], mas[2], mas[3]);
-		for (int i = 0; i < document["Bomb"]["material"]["emission"].Size(); i++) {
-			mas[i] = document["Bomb"]["material"]["emission"][i].GetDouble();
-		}
-		materials.at(1)->setEmission(mas[0], mas[1], mas[2], mas[3]);
-		materials.at(1)->setShininess(document["Bomb"]["material"]["shininess"].GetDouble());
-	}
+	materialTexture[0].setTexture(this->textures[0]);
+	materialTexture[1].setTexture(this->textures[1]);
+	materialTexture[2].setTexture(this->textures[2]);
 
-	meshes.emplace_back(new Mesh);
-	meshes.at(5)->load(document["Monster"]["mesh"].GetString());
-	
-	if (document["Monster"]["material"]["type"].GetString() == "PhongMaterial") {
-		materials.emplace_back(new PhongMaterial);
-		float mas[4];
-		for (int i = 0; i < document["Monster"]["material"]["diffuse"].Size(); i++) {
-			mas[i] = document["Monster"]["material"]["diffuse"][i].GetDouble();
-		}
-		materials.at(2)->setDiffuse(mas[0], mas[1], mas[2], mas[3]);
-		for (int i = 0; i < document["Monster"]["material"]["ambient"].Size(); i++) {
-			mas[i] = document["Monster"]["material"]["ambient"][i].GetDouble();
-		}
-		materials.at(2)->setAmbient(mas[0], mas[1], mas[2], mas[3]);
-		for (int i = 0; i < document["Monster"]["material"]["specular"].Size(); i++) {
-			mas[i] = document["Monster"]["material"]["specular"][i].GetDouble();
-		}
-		materials.at(2)->setSpecular(mas[0], mas[1], mas[2], mas[3]);
-		for (int i = 0; i < document["Monster"]["material"]["emission"].Size(); i++) {
-			mas[i] = document["Monster"]["material"]["emission"][i].GetDouble();
-		}
-		materials.at(2)->setEmission(mas[0], mas[1], mas[2], mas[3]);
-		materials.at(2)->setShininess(document["Monster"]["material"]["shininess"].GetDouble());
-	}
 
-	
+	this->materials.push_back(std::make_shared<PhongMaterialWithTexture>(materialTexture[0]));
+	this->materials.push_back(std::make_shared<PhongMaterialWithTexture>(materialTexture[1]));
+	this->materials.push_back(std::make_shared<PhongMaterialWithTexture>(materialTexture[2]));
+	this->materials.push_back(std::make_shared<PhongMaterial>(material[0]));
+	this->materials.push_back(std::make_shared<PhongMaterial>(material[1]));
+	this->materials.push_back(std::make_shared<PhongMaterial>(material[2]));
 }
 
 shared_ptr<GameObject> GameObjectFactory::create(GameObjectType type, int x, int y, int z) {
 	shared_ptr<GraphicObject> ob = make_shared<GraphicObject>();
-	ob->setMesh(meshes.at(int(type)));
-	ob->setMaterial(materials.at(int(type)));
+	switch (type)
+	{
+	case GameObjectType::LIGHT_OBJECT:
+		ob->setMesh(meshes.at(0));
+		ob->setMaterial(materials.at(0));
+	default:
+		break;
+	}
+
 	shared_ptr<GameObject> el = make_shared<GameObject>();
 	el->setGraphicObject(ob);
 	el->setPosition(x - 10, 0, z - 10);
 	return el;
 }
-shared_ptr<Monster> GameObjectFactory::create(GameObjectType type, int x, int y, int z, bool monster){
+shared_ptr<Monster> GameObjectFactory::create(GameObjectType type, int x, int y, int z, bool monster) {
 	shared_ptr<GraphicObject> ob = make_shared<GraphicObject>();
-	ob->setMesh(meshes.at(int(type)));
-	ob->setMaterial(materials.at(int(type)));
+	//ob->setMesh(meshes.at(int(type)));
+	//ob->setMaterial(materials.at(int(type)));
 	shared_ptr<Monster> el = make_shared<Monster>();
 	el->setGraphicObject(ob);
 	el->setPosition(x - 10, 0, z - 10);

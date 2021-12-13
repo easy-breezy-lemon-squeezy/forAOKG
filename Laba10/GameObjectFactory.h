@@ -1,25 +1,26 @@
 #pragma once
-#include "GraphObject.h"
-#include <windows.h>
+
+#include <Windows.h>
 #include <stdio.h>
-#include <string>
-#include <vector>
-#include "rapidjson/document.h"
-#include <GL/gl.h>
-#include "freeglut/include/GL/glut.h"
-#include "freeglut/include/GL/freeglut.h"
+
 #include "GameObject.h"
-#include <fstream>
-#include <iostream>
-#include <iomanip>
-#include <iterator>
-#include <sstream>
+#include "Mesh.h"
+#include "GraphObject.h"
+#include "Material.h"
+
 #include <memory>
+#include <vector>
+#include <fstream>
 
-using namespace std;
+#include "rapidjson/document.h"
 
-// ОПРЕДЕЛЕНИЕ ТИПОВ ИГРОВЫХ ОБЪЕКТОВ
-enum class GameObjectType {
+#include "glew-2.2.0/include/GL/glew.h"
+#include <gl/GL.h>
+#include <gl/GLU.h>
+#include "GL/freeglut.h"
+
+enum class GameObjectType
+{
 	LIGHT_OBJECT, // легкий игровой объект
 	HEAVY_OBJECT, // тяжелый игровой объект
 	BORDER_OBJECT, // граничный игровой объект
@@ -31,17 +32,12 @@ enum class GameObjectType {
 class GameObjectFactory
 {
 public:
-	// инициализация фабрики (загрузка мешей и установка параметров материала)
-	bool init();
-	// создание нового объекта заданного типа
+	bool init(std::string filename);
 	shared_ptr<GameObject> create(GameObjectType type, int x, int y, int z);
 	shared_ptr<Monster> create(GameObjectType type, int x, int y, int z, bool monster);
+
 private:
-	// меши для каждого типа объекта
-	vector<shared_ptr<Mesh>> meshes;
-	// материалы для каждого типа объекта
-	vector<shared_ptr<PhongMaterial>> materials;
-	vector <shared_ptr<PhongMaterialWithTexture>> materialsWithTexture;
-	// текстуры
-	vector<shared_ptr <Texture>> textures;
+	vector <std::shared_ptr <Mesh>> meshes;
+	vector <std::shared_ptr <Material>> materials;
+	vector <std::shared_ptr <Texture>> textures;
 };

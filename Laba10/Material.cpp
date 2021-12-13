@@ -165,6 +165,17 @@ void PhongMaterialWithTexture::apply()
 	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specular);
 	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, shininess);
+	if (this->texture != nullptr)
+	{
+		glActiveTexture(GL_TEXTURE0);
+		glEnable(GL_TEXTURE_2D);
+		this->texture.get()->apply();
+		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	}
+	else
+	{
+		Texture::disableAll;
+	}
 }
 
 void PhongMaterialWithTexture::load(const char* path)
