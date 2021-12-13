@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string>
 #include <vector>
+#include "rapidjson/document.h"
 #include <GL/gl.h>
 #include "freeglut/include/GL/glut.h"
 #include "freeglut/include/GL/freeglut.h"
@@ -27,8 +28,6 @@ enum class GameObjectType {
 	MONSTER // игровой объект для представления монстров
 };
 
-/*string type[] = { "LightObject", "HeavyObject", "BorderObject", "Player", "Bomb", "Monster" };
-int typeSize = 6;*/
 class GameObjectFactory
 {
 public:
@@ -42,4 +41,7 @@ private:
 	vector<shared_ptr<Mesh>> meshes;
 	// материалы для каждого типа объекта
 	vector<shared_ptr<PhongMaterial>> materials;
+	vector <shared_ptr<PhongMaterialWithTexture>> materialsWithTexture;
+	// текстуры
+	vector<shared_ptr <Texture>> textures;
 };

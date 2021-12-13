@@ -25,6 +25,7 @@ bool GameObjectFactory::init()
 
 	//string obj = type[i];
 	string meshLightObject = document["LightObject"]["mesh"].GetString();
+
 	meshes.emplace_back(new Mesh);
 	meshes.at(0)->load(meshLightObject);
 	float mas[4];

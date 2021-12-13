@@ -8,8 +8,6 @@
 #include <sstream>
 
 
-
-
 // Конструктор
 PhongMaterial::PhongMaterial(void)
 {
@@ -168,10 +166,7 @@ void PhongMaterialWithTexture::apply()
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specular);
 	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, shininess);
 }
-ostream& operator<<(ostream& lhv, const vector<float>& rhv) {
-	std::copy(rhv.begin(), rhv.end(), ostream_iterator<float>(cout, " "));
-	return lhv;
-}
+
 void PhongMaterialWithTexture::load(const char* path)
 {
 	ofstream fout;

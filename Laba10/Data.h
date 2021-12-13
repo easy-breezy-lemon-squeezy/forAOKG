@@ -28,6 +28,7 @@ GraphicObject planeGraphicObject;
 
 vector<shared_ptr<PhongMaterial>> materials;
 vector<shared_ptr<Mesh>> mesh;
+
 Texture planeTexture;
 
 GraphicObject graph1, graph2, graph3, graph0;
