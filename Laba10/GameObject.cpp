@@ -104,7 +104,14 @@ bool GameObject::isMoving()
 		return true;
 	}
 }
-
+void GameObject::setExist(bool value)
+{
+	this->exist = value;
+}
+bool GameObject::getExist()
+{
+	return exist;
+}
 void GameObject::move(MoveDirection direction, float speed)
 {
 	this->speed = speed;

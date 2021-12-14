@@ -18,14 +18,15 @@ Camera camera;
 Light light;
 #define SIZE 21
 
-// задание всех параметров одного материала
 PhongMaterial material1, material2, material3, material4;
 shared_ptr<GameObject> mapObjects[SIZE][SIZE];
 shared_ptr<GameObject> player;
+shared_ptr<GameObject> bomb;
 bool showPlayer;
+bool bombExist;
 shared_ptr <Monster> enemy[3];
-GraphicObject planeGraphicObject;
 
+GraphicObject planeGraphicObject;
 vector<shared_ptr<PhongMaterial>> materials;
 vector<shared_ptr<Mesh>> mesh;
 

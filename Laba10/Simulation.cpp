@@ -1,5 +1,8 @@
 #include "Simulation.h"
 
+
+double bombTimer;
+
 float GetSimulationTime() {
 	OldSimTik = NewSimTik;
 	QueryPerformanceCounter(&NewSimTik);
@@ -116,8 +119,197 @@ void movePlayer()
 		Array.get()->at(int(player->getX()) + 10).at(int(player->getY()) + 11) = '0';
 		Array.get()->at(int(player->getX()) + 10).at(int(player->getY()) + 12) = '1';
 	}
-}
 
+	if (GetAsyncKeyState(VK_SPACE) && !player.get()->isMoving() && !bombExist)
+	{
+		bomb = gameObjectFactory.create(GameObjectType::BOMB, (int(player->getX()) + 10), 0, (int(player->getY()) + 10), 1);
+		bombExist = true;
+		bombTimer = 0;
+	}
+}
+void bombSimualtion(float simulationTime)
+{
+	
+	if (bombTimer >= 2)
+	{
+		bombExist = false;
+
+		if (bomb != nullptr)
+		{
+			//взрыв игрока 
+			if (player->getX() == bomb->getX() && player->getY() == bomb->getY())
+			{
+				showPlayer = false;
+			}
+			if (player->getX() == bomb->getX() - 1 && player->getY() == bomb->getY())
+			{
+				showPlayer = false;
+			}
+			if (player->getX() == bomb->getX() - 2 && player->getY() == bomb->getY())
+			{
+				showPlayer = false;
+			}
+			if (player->getX() == bomb->getX() + 1 && player->getY() == bomb->getY())
+			{
+				showPlayer = false;
+			}
+			if (player->getX() == bomb->getX() + 2 && player->getY() == bomb->getY())
+			{
+				showPlayer = false;
+			}
+			if (player->getX() == bomb->getX() && player->getY() == bomb->getY() + 1)
+			{
+				showPlayer = false;
+			}
+			if (player->getX() == bomb->getX() && player->getY() == bomb->getY() + 2)
+			{
+				showPlayer = false;
+			}
+			if (player->getX() == bomb->getX() && player->getY() == bomb->getY() - 1)
+			{
+				showPlayer = false;
+			}
+			if (player->getX() == bomb->getX() && player->getY() == bomb->getY() - 2)
+			{
+				showPlayer = false;
+			}
+
+			//взрыв монстров
+	
+			for (int i = 0; i < 3; i++)
+			{
+				if (enemy[i]->getExist() == true)
+				{
+					if (enemy[i]->getX() == bomb->getX() && enemy[i]->getY() == bomb->getY())
+					{
+						enemy[i].get()->setExist(false);
+					}
+					if (enemy[i]->getX() == bomb->getX() && enemy[i]->getY() == bomb->getY() - 1)
+					{
+						enemy[i].get()->setExist(false);
+					}
+					if (enemy[i]->getX() == bomb->getX() && enemy[i]->getY() == bomb->getY() - 2)
+					{
+						enemy[i].get()->setExist(false);
+					}
+					if (enemy[i]->getX() == bomb->getX() && enemy[i]->getY() == bomb->getY() + 1)
+					{
+						enemy[i].get()->setExist(false);
+					}
+					if (enemy[i]->getX() == bomb->getX() && enemy[i]->getY() == bomb->getY() + 2)
+					{
+						enemy[i].get()->setExist(false);
+					}
+					if (enemy[i]->getX() == bomb->getX() - 1 && enemy[i]->getY() == bomb->getY())
+					{
+						enemy[i].get()->setExist(false);
+					}
+					if (enemy[i]->getX() == bomb->getX() - 2 && enemy[i]->getY() == bomb->getY())
+					{
+						enemy[i].get()->setExist(false);
+					}
+					if (enemy[i]->getX() == bomb->getX() + 1 && enemy[i]->getY() == bomb->getY())
+					{
+						enemy[i].get()->setExist(false);
+					}
+					if (enemy[i]->getX() == bomb->getX() + 2 && enemy[i]->getY() == bomb->getY())
+					{
+						enemy[i].get()->setExist(false);
+					}
+				}
+
+			}
+		/*
+			for (int i = 0; i < 21; i++)
+			{
+				for (int j = 0; j < 21; j++)
+				{
+					if (mapObjects[i][j] != nullptr)
+					{
+						if (mapObjects[i][j].get()->getPositon().x == bomb.get()->getPositon().x && mapObjects[i][j].get()->getPositon().y == bomb.get()->getPositon().y && passabilityMap[i][j] == 1)
+						{
+							mapObjects[i][j] = nullptr;
+							passabilityMap[i][j] = 0;
+						}
+						else
+						{
+							if (mapObjects[i][j].get()->getPositon().x == bomb.get()->getPositon().x - 1 && mapObjects[i][j].get()->getPositon().y == bomb.get()->getPositon().y && passabilityMap[i][j] == 1)
+							{
+								mapObjects[i][j] = nullptr;
+								passabilityMap[i][j] = 0;
+							}
+							else
+							{
+								if (mapObjects[i][j].get()->getPositon().x == bomb.get()->getPositon().x - 2 && mapObjects[i][j].get()->getPositon().y == bomb.get()->getPositon().y && passabilityMap[i][j] == 1)
+								{
+									mapObjects[i][j] = nullptr;
+									passabilityMap[i][j] = 0;
+								}
+								else
+								{
+									if (mapObjects[i][j].get()->getPositon().x == bomb.get()->getPositon().x + 1 && mapObjects[i][j].get()->getPositon().y == bomb.get()->getPositon().y && passabilityMap[i][j] == 1)
+									{
+										mapObjects[i][j] = nullptr;
+										passabilityMap[i][j] = 0;
+									}
+									else
+									{
+										if (mapObjects[i][j].get()->getPositon().x == bomb.get()->getPositon().x + 2 && mapObjects[i][j].get()->getPositon().y == bomb.get()->getPositon().y && passabilityMap[i][j] == 1)
+										{
+											mapObjects[i][j] = nullptr;
+											passabilityMap[i][j] = 0;
+										}
+										else
+										{
+											if (mapObjects[i][j].get()->getPositon().x == bomb.get()->getPositon().x && mapObjects[i][j].get()->getPositon().y == bomb.get()->getPositon().y + 1 && passabilityMap[i][j] == 1)
+											{
+												mapObjects[i][j] = nullptr;
+												passabilityMap[i][j] = 0;
+											}
+											else
+											{
+												if (mapObjects[i][j].get()->getPositon().x == bomb.get()->getPositon().x && mapObjects[i][j].get()->getPositon().y == bomb.get()->getPositon().y + 2 && passabilityMap[i][j] == 1)
+												{
+													mapObjects[i][j] = nullptr;
+													passabilityMap[i][j] = 0;
+												}
+												else
+												{
+													if (mapObjects[i][j].get()->getPositon().x == bomb.get()->getPositon().x && mapObjects[i][j].get()->getPositon().y == bomb.get()->getPositon().y - 1 && passabilityMap[i][j] == 1)
+													{
+														mapObjects[i][j] = nullptr;
+														passabilityMap[i][j] = 0;
+													}
+													else
+													{
+														if (mapObjects[i][j].get()->getPositon().x == bomb.get()->getPositon().x && mapObjects[i][j].get()->getPositon().y == bomb.get()->getPositon().y - 2 && passabilityMap[i][j] == 1)
+														{
+															mapObjects[i][j] = nullptr;
+															passabilityMap[i][j] = 0;
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			*/
+		}
+
+		bomb = nullptr;
+		bombTimer = 0;
+	}
+	else
+	{
+		bombTimer += simulationTime;
+	}
+}
 void simulation() {
 	// ОПРЕДЕЛЕНИЕ ВРЕМЕНИ ПРОШЕДШЕГО С МОМЕНТА ПОСЛЕДНЕЙ СИМУЛЯЦИИ В СЕКУНДАХ
 	float deltaTime = GetSimulationTime();
@@ -136,6 +328,9 @@ void simulation() {
 	{
 		enemy[i].get()->monsterSimulation();
 	}
+
+	// симуляция бомбы
+	bombSimualtion(deltaTime);
 	// устанавливаем признак того, что окно нуждается в перерисовке
 	glutPostRedisplay();
 }

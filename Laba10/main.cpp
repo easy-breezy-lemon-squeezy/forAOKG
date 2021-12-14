@@ -69,14 +69,23 @@ void Display(void)
 		}
 
 	}
-	enemy[0].get()->draw();
-	enemy[1].get()->draw();
-	enemy[2].get()->draw();
+
+	for (int i = 0; i < 3; i++)
+	{
+		if (enemy[i].get()->getExist())
+		{
+			enemy[i].get()->draw();
+		}
+	}
 
 	if (showPlayer) {
 		player->draw();
 	}
-	
+
+	if (bomb != nullptr)
+	{
+		bomb.get()->draw();
+	}
 	drawPlane();
 	// смена переднего и заднего буферов
 	glutSwapBuffers();

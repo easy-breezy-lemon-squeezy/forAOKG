@@ -40,6 +40,8 @@ public:
 	void simulate(float sec);
 	// проверка на то, что объект в настоящий момент движется
 	bool isMoving();
+	void setExist(bool value);
+	bool getExist();
 private:
 	// логические координаты игрового объекта
 	float x, y;
@@ -51,6 +53,7 @@ private:
 	float progress=0.0f;
 	// скорость перемещения
 	float speed;
+	bool exist = true;
 };
 class Monster : public GameObject
 {
