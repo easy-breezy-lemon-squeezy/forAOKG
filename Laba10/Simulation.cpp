@@ -219,73 +219,73 @@ void bombSimualtion(float simulationTime)
 				}
 
 			}
-		/*
+			
 			for (int i = 0; i < 21; i++)
 			{
 				for (int j = 0; j < 21; j++)
 				{
 					if (mapObjects[i][j] != nullptr)
 					{
-						if (mapObjects[i][j].get()->getPositon().x == bomb.get()->getPositon().x && mapObjects[i][j].get()->getPositon().y == bomb.get()->getPositon().y && passabilityMap[i][j] == 1)
+						if (mapObjects[i][j]->getX() == bomb->getX() && mapObjects[i][j]->getY() == bomb->getY() && Array.get()->at(i).at(j) == '1')
 						{
 							mapObjects[i][j] = nullptr;
-							passabilityMap[i][j] = 0;
+							Array.get()->at(i).at(j) == '0';
 						}
 						else
 						{
-							if (mapObjects[i][j].get()->getPositon().x == bomb.get()->getPositon().x - 1 && mapObjects[i][j].get()->getPositon().y == bomb.get()->getPositon().y && passabilityMap[i][j] == 1)
+							if (mapObjects[i][j]->getX() == bomb->getX() - 1 && mapObjects[i][j]->getY() == bomb->getY() && Array.get()->at(i).at(j) == '1')
 							{
 								mapObjects[i][j] = nullptr;
-								passabilityMap[i][j] = 0;
+								Array.get()->at(i).at(j) == '0';
 							}
 							else
 							{
-								if (mapObjects[i][j].get()->getPositon().x == bomb.get()->getPositon().x - 2 && mapObjects[i][j].get()->getPositon().y == bomb.get()->getPositon().y && passabilityMap[i][j] == 1)
+								if (mapObjects[i][j]->getX() == bomb->getX() - 2 && mapObjects[i][j]->getY() == bomb->getY() && Array.get()->at(i).at(j) == '1')
 								{
 									mapObjects[i][j] = nullptr;
-									passabilityMap[i][j] = 0;
+									Array.get()->at(i).at(j) == '0';
 								}
 								else
 								{
-									if (mapObjects[i][j].get()->getPositon().x == bomb.get()->getPositon().x + 1 && mapObjects[i][j].get()->getPositon().y == bomb.get()->getPositon().y && passabilityMap[i][j] == 1)
+									if (mapObjects[i][j]->getX() == bomb->getX() + 1 && mapObjects[i][j]->getY() == bomb->getY() && Array.get()->at(i).at(j) == '1')
 									{
 										mapObjects[i][j] = nullptr;
-										passabilityMap[i][j] = 0;
+										Array.get()->at(i).at(j) == '0';
 									}
 									else
 									{
-										if (mapObjects[i][j].get()->getPositon().x == bomb.get()->getPositon().x + 2 && mapObjects[i][j].get()->getPositon().y == bomb.get()->getPositon().y && passabilityMap[i][j] == 1)
+										if (mapObjects[i][j]->getX() == bomb->getX() + 2 && mapObjects[i][j]->getY() == bomb->getY() && Array.get()->at(i).at(j) == '1')
 										{
 											mapObjects[i][j] = nullptr;
-											passabilityMap[i][j] = 0;
+											Array.get()->at(i).at(j) == '0';
 										}
 										else
 										{
-											if (mapObjects[i][j].get()->getPositon().x == bomb.get()->getPositon().x && mapObjects[i][j].get()->getPositon().y == bomb.get()->getPositon().y + 1 && passabilityMap[i][j] == 1)
+											if (mapObjects[i][j]->getX() == bomb->getX() && mapObjects[i][j]->getY() == bomb->getY() + 1 && Array.get()->at(i).at(j) == '1')
 											{
 												mapObjects[i][j] = nullptr;
-												passabilityMap[i][j] = 0;
+												Array.get()->at(i).at(j) == '0';
 											}
 											else
 											{
-												if (mapObjects[i][j].get()->getPositon().x == bomb.get()->getPositon().x && mapObjects[i][j].get()->getPositon().y == bomb.get()->getPositon().y + 2 && passabilityMap[i][j] == 1)
+												if (mapObjects[i][j]->getX() == bomb->getX() && mapObjects[i][j]->getY() == bomb->getY() + 2 && Array.get()->at(i).at(j) == '1')
 												{
 													mapObjects[i][j] = nullptr;
-													passabilityMap[i][j] = 0;
+													Array.get()->at(i).at(j) == '0';
 												}
 												else
 												{
-													if (mapObjects[i][j].get()->getPositon().x == bomb.get()->getPositon().x && mapObjects[i][j].get()->getPositon().y == bomb.get()->getPositon().y - 1 && passabilityMap[i][j] == 1)
+													if (mapObjects[i][j]->getX() == bomb->getX() && mapObjects[i][j]->getY() == bomb->getY() - 1 && Array.get()->at(i).at(j) == '1')
 													{
 														mapObjects[i][j] = nullptr;
-														passabilityMap[i][j] = 0;
+														Array.get()->at(i).at(j) == '0';
 													}
 													else
 													{
-														if (mapObjects[i][j].get()->getPositon().x == bomb.get()->getPositon().x && mapObjects[i][j].get()->getPositon().y == bomb.get()->getPositon().y - 2 && passabilityMap[i][j] == 1)
+														if (mapObjects[i][j]->getX() == bomb->getX() && mapObjects[i][j]->getY() == bomb->getY() - 2 && Array.get()->at(i).at(j) == '1')
 														{
 															mapObjects[i][j] = nullptr;
-															passabilityMap[i][j] = 0;
+															Array.get()->at(i).at(j) == '0';
 														}
 													}
 												}
@@ -299,7 +299,7 @@ void bombSimualtion(float simulationTime)
 				}
 			}
 
-			*/
+			
 		}
 
 		bomb = nullptr;

@@ -69,7 +69,7 @@ void initData()
 		}
 
 	}
-
+	
 	// инициализация главного героя
 	player = gameObjectFactory.create(GameObjectType::PLAYER, 19, 0, 1);
 	//монстры

@@ -61,8 +61,11 @@ void Display(void)
 			//свободные клетки пропускаем
 			if ((Array.get()->at(i).at(j)) != '0') {
 				//объекты
-				mapObjects[i][j]->draw();
-				Texture::disableAll();
+				if (mapObjects[i][j] != nullptr) {
+					mapObjects[i][j]->draw();
+					Texture::disableAll();
+				}
+				
 
 			}
 
