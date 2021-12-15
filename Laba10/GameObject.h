@@ -12,6 +12,7 @@
 
 using namespace std;
 extern shared_ptr<vector<vector<char>>> Array;
+extern int RunMap[21][21];
 // класс-перечисление для указания направления перемещения
 enum class MoveDirection { STOP, LEFT, RIGHT, UP, DOWN };
 

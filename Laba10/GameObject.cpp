@@ -154,140 +154,211 @@ void Monster::monsterSimulation()
 
 	if (!this->isMoving())
 	{
-
 		if (Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 11) != '0' &&
 			Array.get()->at(int(this->getX()) + 9).at(int(this->getY()) + 10) != '0' &&
 			Array.get()->at(int(this->getX()) + 11).at(int(this->getY()) + 10) != '0') {
-			
-			this->move(MoveDirection::UP, 2.0f);
-			this->setLastStand(this->getX(), this->getY());
-		
-			//Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 9) = '0';
-			//Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 8) = '4';
-
-		}
-		else if (Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 9) != '0' &&
-			Array.get()->at(int(this->getX()) + 9).at(int(this->getY()) + 10) != '0' &&
-			Array.get()->at(int(this->getX()) + 11).at(int(this->getY()) + 10) != '0') {
-			this->move(MoveDirection::DOWN, 2.0f);
-			//	Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 11) = '3';
-			//	Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 12) = '0';
-			this->setLastStand(this->getX(), this->getY());
-		}
-		else if (Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 9) != '0' &&
-			Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 11) != '0' &&
-			Array.get()->at(int(this->getX()) + 11).at(int(this->getY()) + 10) != '0') {
-			this->move(MoveDirection::LEFT, 2.0f);
-			//	Array.get()->at(int(this->getX()) + 9).at(int(this->getY()) + 10) = '3';
-			// 	Array.get()->at(int(this->getX()) + 8).at(int(this->getY()) + 10) = '0';
-			this->setLastStand(this->getX(), this->getY());
-		}
-		else if (Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 9) != '0' &&
-			Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 11) != '0' &&
-			Array.get()->at(int(this->getX()) + 9).at(int(this->getY()) + 10) != '0') {
-			this->move(MoveDirection::RIGHT, 2.0f);
-			//	Array.get()->at(int(this->getX()) + 11).at(int(this->getY()) + 10) = '3';
-			//	Array.get()->at(int(this->getX()) + 12).at(int(this->getY()) + 10) = '0';
-			this->setLastStand(this->getX(), this->getY());
+			if (RunMap[int(this->getX()) + 10][int(this->getY()) + 9] == 0) {
+				RunMap[int(this->getX()) + 10][int(this->getY()) + 9] = 1;
+				RunMap[int(this->getX()) + 10][int(this->getY()) + 10] = 0;
+				this->move(MoveDirection::UP, 2.0f);
+				this->setLastStand(this->getX(), this->getY());
+			}
 		}
 		else
-		{
-			if (Array.get()->at(int(this->getX()) + 9).at(int(this->getY()) + 10) != '0' &&
-				Array.get()->at(int(this->getX()) + 11).at(int(this->getY()) + 10) != '0')
-			{
-
-				if (this->getLastStandX() == this->getX() && this->getLastStandY() == this->getY() + 1)
-				{
-					this->move(MoveDirection::UP, 2.0f);
-					//	Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 9) = '3';
-					//	Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 8) = '0';
-					this->setLastStand(this->getX(), this->getY());
-				}
-				else
-				{
+			if (Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 9) != '0' &&
+				Array.get()->at(int(this->getX()) + 9).at(int(this->getY()) + 10) != '0' &&
+				Array.get()->at(int(this->getX()) + 11).at(int(this->getY()) + 10) != '0') {
+				if (RunMap[int(this->getX()) + 10][int(this->getY()) + 11] == 0) {
+					RunMap[int(this->getX()) + 10][int(this->getY()) + 11] = 1;
+					RunMap[int(this->getX()) + 10][int(this->getY()) + 10] = 0;
 					this->move(MoveDirection::DOWN, 2.0f);
-					//	Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 11) = '1';
-					//	Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 12) = '0';
 					this->setLastStand(this->getX(), this->getY());
 				}
 			}
-			else {
+			else
 				if (Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 9) != '0' &&
-					Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 11) != '0')
-				{
-					if (this->getLastStandX() == this->getX() + 1 && this->getLastStandY() == this->getY())
-					{
+					Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 11) != '0' &&
+					Array.get()->at(int(this->getX()) + 11).at(int(this->getY()) + 10) != '0') {
+					if (RunMap[int(this->getX()) + 9][int(this->getY()) + 10] == 0) {
+						RunMap[int(this->getX()) + 9][int(this->getY()) + 10] = 1;
+						RunMap[int(this->getX()) + 10][int(this->getY()) + 10] = 0;
 						this->move(MoveDirection::LEFT, 2.0f);
-						//	Array.get()->at(int(this->getX()) + 9).at(int(this->getY()) + 10) = '1';
-						//	Array.get()->at(int(this->getX()) + 8).at(int(this->getY()) + 10) = '0';
 						this->setLastStand(this->getX(), this->getY());
+					}
+				}
+				else
+					if (Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 9) != '0' &&
+						Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 11) != '0' &&
+						Array.get()->at(int(this->getX()) + 9).at(int(this->getY()) + 10) != '0') {
+						if (RunMap[int(this->getX()) + 11][int(this->getY()) + 10] == 0) {
+							RunMap[int(this->getX()) + 11][int(this->getY()) + 10] = 1;
+							RunMap[int(this->getX()) + 10][int(this->getY()) + 10] = 0;
+							this->move(MoveDirection::RIGHT, 2.0f);
+							this->setLastStand(this->getX(), this->getY());
+						}
 					}
 					else
 					{
-						this->move(MoveDirection::RIGHT, 2.0f);
-						//	Array.get()->at(int(this->getX()) + 11).at(int(this->getY()) + 10) = '1';
-						//	Array.get()->at(int(this->getX()) + 12).at(int(this->getY()) + 10) = '0';
-						this->setLastStand(this->getX(), this->getY());
-					}
-				}
-				else
-				{
-					int direction = rand() % 4;
+						if (Array.get()->at(int(this->getX()) + 9).at(int(this->getY()) + 10) != '0' &&
+							Array.get()->at(int(this->getX()) + 11).at(int(this->getY()) + 10) != '0')
+						{
 
-					switch (direction)
-					{
-					case 0:
-						if (Array.get()->at(int(this->getX()) + 11).at(int(this->getY()) + 10) == '0')
-						{
-							if (!(this->getLastStandX() == this->getX() + 1 && this->getLastStandY() == this->getY()))
+							if (this->getLastStandX() == this->getX() && this->getLastStandY() == this->getY() + 1)
 							{
-								this->move(MoveDirection::RIGHT, 2.0f);
-								//	Array.get()->at(int(this->getX()) + 11).at(int(this->getY()) + 10) = '1';
-								//	Array.get()->at(int(this->getX()) + 12).at(int(this->getY()) + 10) = '0';
-								this->setLastStand(this->getX(), this->getY());
+								if (RunMap[int(this->getX()) + 10][int(this->getY()) + 9] == 0) {
+									RunMap[int(this->getX()) + 10][int(this->getY()) + 9] = 1;
+									RunMap[int(this->getX()) + 10][int(this->getY()) + 10] = 0;
+									this->move(MoveDirection::UP, 2.0f);
+									this->setLastStand(this->getX(), this->getY());
+								}
+								else {
+									RunMap[int(this->getX()) + 10][int(this->getY()) + 11] = 1;
+									RunMap[int(this->getX()) + 10][int(this->getY()) + 10] = 0;
+									this->move(MoveDirection::DOWN, 2.0f);
+									this->setLastStand(this->getX(), this->getY());
+								}
+							}
+							else
+							{
+								if (RunMap[int(this->getX()) + 10][int(this->getY()) + 11] == 0) {
+									RunMap[int(this->getX()) + 10][int(this->getY()) + 11] = 1;
+									RunMap[int(this->getX()) + 10][int(this->getY()) + 10] = 0;
+									this->move(MoveDirection::DOWN, 2.0f);
+									this->setLastStand(this->getX(), this->getY());
+								}
+								else {
+									RunMap[int(this->getX()) + 10][int(this->getY()) + 9] = 1;
+									RunMap[int(this->getX()) + 10][int(this->getY()) + 10] = 0;
+									this->move(MoveDirection::UP, 2.0f);
+									this->setLastStand(this->getX(), this->getY());
+								}
 							}
 						}
-						break;
-					case 1:
-						if (Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 11) == '0')
-						{
-							if (!(this->getLastStandX() == this->getX() && this->getLastStandY() == this->getY() + 1))
+						else {
+							if (Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 9) != '0' &&
+								Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 11) != '0')
 							{
-								this->move(MoveDirection::DOWN, 2.0f);
-								//	Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 11) = '1';
-								//	Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 12) = '0';
-								this->setLastStand(this->getX(), this->getY());
+								if (this->getLastStandX() == this->getX() + 1 && this->getLastStandY() == this->getY())
+								{
+									if (RunMap[int(this->getX()) + 9][int(this->getY()) + 10] == 0) {
+										RunMap[int(this->getX()) + 9][int(this->getY()) + 10] = 1;
+										RunMap[int(this->getX()) + 10][int(this->getY()) + 10] = 0;
+										this->move(MoveDirection::LEFT, 2.0f);
+										this->setLastStand(this->getX(), this->getY());
+									}
+									else {
+										RunMap[int(this->getX()) + 11][int(this->getY()) + 10] = 1;
+										RunMap[int(this->getX()) + 10][int(this->getY()) + 10] = 0;
+										this->move(MoveDirection::RIGHT, 2.0f);
+										this->setLastStand(this->getX(), this->getY());
+									}
+								}
+								else
+								{
+									if (RunMap[int(this->getX()) + 11][int(this->getY()) + 10] == 0) {
+										RunMap[int(this->getX()) + 11][int(this->getY()) + 10] = 1;
+										RunMap[int(this->getX()) + 10][int(this->getY()) + 10] = 0;
+										this->move(MoveDirection::RIGHT, 2.0f);
+										this->setLastStand(this->getX(), this->getY());
+									}
+									else {
+										RunMap[int(this->getX()) + 9][int(this->getY()) + 10] = 1;
+										RunMap[int(this->getX()) + 10][int(this->getY()) + 10] = 0;
+										this->move(MoveDirection::LEFT, 2.0f);
+										this->setLastStand(this->getX(), this->getY());
+									}
+								}
+							}
+							else
+							{
+								int direction = rand() % 4;
+
+								switch (direction)
+								{
+								case 0:
+									if (Array.get()->at(int(this->getX()) + 11).at(int(this->getY()) + 10) == '0')
+									{
+										if (!(this->getLastStandX() == this->getX() + 1 && this->getLastStandY() == this->getY()))
+										{
+											if (RunMap[int(this->getX()) + 11][int(this->getY()) + 10] == 0) {
+												RunMap[int(this->getX()) + 11][int(this->getY()) + 10] = 1;
+												RunMap[int(this->getX()) + 10][int(this->getY()) + 10] = 0;
+												this->move(MoveDirection::RIGHT, 2.0f);
+												this->setLastStand(this->getX(), this->getY());
+											}
+											else {
+												RunMap[int(this->getX()) + 9][int(this->getY()) + 10] = 1;
+												RunMap[int(this->getX()) + 10][int(this->getY()) + 10] = 0;
+												this->move(MoveDirection::LEFT, 2.0f);
+												this->setLastStand(this->getX(), this->getY());
+											}
+										}
+									}
+									break;
+								case 1:
+									if (Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 11) == '0')
+									{
+										if (!(this->getLastStandX() == this->getX() && this->getLastStandY() == this->getY() + 1))
+										{
+											if (RunMap[int(this->getX()) + 10][int(this->getY()) + 11] == 0) {
+												RunMap[int(this->getX()) + 10][int(this->getY()) + 11] = 1;
+												RunMap[int(this->getX()) + 10][int(this->getY()) + 10] = 0;
+												this->move(MoveDirection::DOWN, 2.0f);
+												this->setLastStand(this->getX(), this->getY());
+											}
+											else {
+												RunMap[int(this->getX()) + 10][int(this->getY()) + 9] = 1;
+												RunMap[int(this->getX()) + 10][int(this->getY()) + 10] = 0;
+												this->move(MoveDirection::UP, 2.0f);
+												this->setLastStand(this->getX(), this->getY());
+											}
+										}
+									}
+									break;
+								case 2:
+									if (Array.get()->at(int(this->getX()) + 9).at(int(this->getY()) + 10) == '0')
+									{
+										if (!(this->getLastStandX() == this->getX() - 1 && this->getLastStandY() == this->getY()))
+										{
+											if (RunMap[int(this->getX()) + 9][int(this->getY()) + 10] == 0) {
+												RunMap[int(this->getX()) + 9][int(this->getY()) + 10] = 1;
+												RunMap[int(this->getX()) + 10][int(this->getY()) + 10] = 0;
+												this->move(MoveDirection::LEFT, 2.0f);
+												this->setLastStand(this->getX(), this->getY());
+											}
+											else {
+												RunMap[int(this->getX()) + 11][int(this->getY()) + 10] = 1;
+												RunMap[int(this->getX()) + 10][int(this->getY()) + 10] = 0;
+												this->move(MoveDirection::RIGHT, 2.0f);
+												this->setLastStand(this->getX(), this->getY());
+											}
+										}
+									}
+									break;
+								case 3:
+									if (Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 9) == '0')
+									{
+										if (!(this->getLastStandX() == this->getX() && this->getLastStandY() == this->getY() - 1))
+										{
+											if (RunMap[int(this->getX()) + 10][int(this->getY()) + 9] == 0) {
+												RunMap[int(this->getX()) + 10][int(this->getY()) + 9] = 1;
+												RunMap[int(this->getX()) + 10][int(this->getY()) + 10] = 0;
+												this->move(MoveDirection::UP, 2.0f);
+												this->setLastStand(this->getX(), this->getY());
+											}
+											else {
+												RunMap[int(this->getX()) + 10][int(this->getY()) + 11] = 1;
+												RunMap[int(this->getX()) + 10][int(this->getY()) + 10] = 0;
+												this->move(MoveDirection::DOWN, 2.0f);
+												this->setLastStand(this->getX(), this->getY());
+											}
+										}
+									}
+									break;
+								}
 							}
 						}
-						break;
-					case 2:
-						if (Array.get()->at(int(this->getX()) + 9).at(int(this->getY()) + 10) == '0')
-						{
-							if (!(this->getLastStandX() == this->getX() - 1 && this->getLastStandY() == this->getY()))
-							{
-								this->move(MoveDirection::LEFT, 2.0f);
-								//    Array.get()->at(int(this->getX()) + 9).at(int(this->getY()) + 10) = '1';
-								//	Array.get()->at(int(this->getX()) + 8).at(int(this->getY()) + 10) = '0';
-								this->setLastStand(this->getX(), this->getY());
-							}
-						}
-						break;
-					case 3:
-						if (Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 9) == '0')
-						{
-							if (!(this->getLastStandX() == this->getX() && this->getLastStandY() == this->getY() - 1))
-							{
-								this->move(MoveDirection::UP, 2.0f);
-								//	Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 9) = '1';
-								//	Array.get()->at(int(this->getX()) + 10).at(int(this->getY()) + 8) = '0';
-								this->setLastStand(this->getX(), this->getY());
-							}
-						}
-						break;
 					}
-				}
-			}
-		}
 
 	}
 
