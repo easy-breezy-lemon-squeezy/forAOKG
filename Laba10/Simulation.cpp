@@ -42,15 +42,18 @@ void gameObjectSimulation(float simulationTime) {
 
 	for (int i = 0; i < 3; i++)
 	{
-		enemy[i].get()->simulate(simulationTime);
+		if (enemy[i].get()->getExist() == true) {
+			enemy[i].get()->simulate(simulationTime);
 
-		if (enemy[i].get()->getX() == player.get()->getX() - 1 && enemy[i].get()->getY() == player.get()->getY()  || 
-			enemy[i].get()->getX() == player.get()->getX() && enemy[i].get()->getY() == player.get()->getY() + 1  ||
-			enemy[i].get()->getX() == player.get()->getX() && enemy[i].get()->getY() == player.get()->getY() - 1  ||
-			enemy[i].get()->getX() == player.get()->getX() + 1 && enemy[i].get()->getY() == player.get()->getY())
-		{
-			showPlayer = false;
+			if (enemy[i].get()->getX() == player.get()->getX() - 1 && enemy[i].get()->getY() == player.get()->getY() ||
+				enemy[i].get()->getX() == player.get()->getX() && enemy[i].get()->getY() == player.get()->getY() + 1 ||
+				enemy[i].get()->getX() == player.get()->getX() && enemy[i].get()->getY() == player.get()->getY() - 1 ||
+				enemy[i].get()->getX() == player.get()->getX() + 1 && enemy[i].get()->getY() == player.get()->getY())
+			{
+				showPlayer = false;
+			}
 		}
+	
 	}
 	
 
@@ -215,6 +218,7 @@ void bombSimualtion(float simulationTime)
 					if (enemy[i]->getX() == bomb->getX() + 2 && enemy[i]->getY() == bomb->getY())
 					{
 						enemy[i].get()->setExist(false);
+						
 					}
 				}
 
@@ -229,63 +233,63 @@ void bombSimualtion(float simulationTime)
 						if (mapObjects[i][j]->getX() == bomb->getX() && mapObjects[i][j]->getY() == bomb->getY() && Array.get()->at(i).at(j) == '1')
 						{
 							mapObjects[i][j] = nullptr;
-							Array.get()->at(i).at(j) == '0';
+							Array.get()->at(i).at(j) = '0';
 						}
 						else
 						{
 							if (mapObjects[i][j]->getX() == bomb->getX() - 1 && mapObjects[i][j]->getY() == bomb->getY() && Array.get()->at(i).at(j) == '1')
 							{
 								mapObjects[i][j] = nullptr;
-								Array.get()->at(i).at(j) == '0';
+								Array.get()->at(i).at(j) = '0';
 							}
 							else
 							{
 								if (mapObjects[i][j]->getX() == bomb->getX() - 2 && mapObjects[i][j]->getY() == bomb->getY() && Array.get()->at(i).at(j) == '1')
 								{
 									mapObjects[i][j] = nullptr;
-									Array.get()->at(i).at(j) == '0';
+									Array.get()->at(i).at(j) = '0';
 								}
 								else
 								{
 									if (mapObjects[i][j]->getX() == bomb->getX() + 1 && mapObjects[i][j]->getY() == bomb->getY() && Array.get()->at(i).at(j) == '1')
 									{
 										mapObjects[i][j] = nullptr;
-										Array.get()->at(i).at(j) == '0';
+										Array.get()->at(i).at(j) = '0';
 									}
 									else
 									{
 										if (mapObjects[i][j]->getX() == bomb->getX() + 2 && mapObjects[i][j]->getY() == bomb->getY() && Array.get()->at(i).at(j) == '1')
 										{
 											mapObjects[i][j] = nullptr;
-											Array.get()->at(i).at(j) == '0';
+											Array.get()->at(i).at(j) = '0';
 										}
 										else
 										{
 											if (mapObjects[i][j]->getX() == bomb->getX() && mapObjects[i][j]->getY() == bomb->getY() + 1 && Array.get()->at(i).at(j) == '1')
 											{
 												mapObjects[i][j] = nullptr;
-												Array.get()->at(i).at(j) == '0';
+												Array.get()->at(i).at(j) = '0';
 											}
 											else
 											{
 												if (mapObjects[i][j]->getX() == bomb->getX() && mapObjects[i][j]->getY() == bomb->getY() + 2 && Array.get()->at(i).at(j) == '1')
 												{
 													mapObjects[i][j] = nullptr;
-													Array.get()->at(i).at(j) == '0';
+													Array.get()->at(i).at(j) = '0';
 												}
 												else
 												{
 													if (mapObjects[i][j]->getX() == bomb->getX() && mapObjects[i][j]->getY() == bomb->getY() - 1 && Array.get()->at(i).at(j) == '1')
 													{
 														mapObjects[i][j] = nullptr;
-														Array.get()->at(i).at(j) == '0';
+														Array.get()->at(i).at(j) = '0';
 													}
 													else
 													{
 														if (mapObjects[i][j]->getX() == bomb->getX() && mapObjects[i][j]->getY() == bomb->getY() - 2 && Array.get()->at(i).at(j) == '1')
 														{
 															mapObjects[i][j] = nullptr;
-															Array.get()->at(i).at(j) == '0';
+															Array.get()->at(i).at(j) = '0';
 														}
 													}
 												}
